@@ -1,0 +1,109 @@
+.login {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--bg-blue-dark-two);
+}
+
+.login-form {
+    width: 408px;
+    height: 488px;
+    border-radius: 20px;
+    border: 1px solid #313D4F;
+    background: var(--bg-blue-dark-one);
+    padding: 30px 44px;
+}
+
+.login-form .login-logo {
+    text-align: center;
+}
+
+.login-form .login-control {
+    margin: 27px 0;
+    padding: 17px 0;
+    position: relative;
+}
+
+.login-form .login-control::after,
+.login-form .login-control::before {
+    content: "";
+    height: 1px;
+    width: 100%;
+    background: var(--color-gray-two);
+    opacity: 0.21;
+    display: block;
+    position: absolute;
+    left: 0;
+}
+
+.login-form .login-control::before {
+    top: 0;
+}
+
+.login-form .login-control::after {
+    bottom: 0;
+}
+
+.login-form .login-group {
+    margin-bottom: 16px;
+}
+
+.login-form .login-group label {
+    color: var(--color-blue);
+    font-size: 1.8rem;
+    font-weight: 700;
+    line-height: 1.11%;
+    width: 100%;
+}
+
+.login-form .login-group input {
+    background: var(--color-gray-three);
+    color: var(--color-gray-one);
+    line-height: 1.33%;
+    /* 133.333% */
+    width: 100%;
+    border-radius: 8px;
+    padding: 8px;
+    outline: none;
+    border: none;
+    margin-top: 16px;
+}
+
+.login-form .login-password {
+    position: relative;
+}
+
+.login-form .login-group .login-icon {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    cursor: pointer;
+}
+
+.login-form .login-group .login-error {
+    margin-top: 5px;
+}
+
+.login-form .forgot-password {
+    color: #6091FF;
+    font-weight: 400;
+    line-height: 20px;
+    /* 133.333% */
+}
+
+.login-form .login-button {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.login-form .login-button .btn-login {
+    background: var(--color-blue);
+    cursor: pointer;
+}
+
+.login-form .login-button .btn-register {
+    background: var(--color-gray-three);
+}
