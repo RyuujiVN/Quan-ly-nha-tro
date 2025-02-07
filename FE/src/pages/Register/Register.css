@@ -1,0 +1,104 @@
+.register {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--bg-blue-dark-two);
+}
+
+.register-form {
+    width: 408px;
+    border-radius: 20px;
+    border: 1px solid #313D4F;
+    background: var(--bg-blue-dark-one);
+    padding: 30px 44px;
+}
+
+.register-form .register-logo {
+    text-align: center;
+}
+
+.register-form .register-control {
+    margin: 27px 0;
+    padding: 17px 0;
+    position: relative;
+}
+
+.register-form .register-control::after,
+.register-form .register-control::before {
+    content: "";
+    height: 1px;
+    width: 100%;
+    background: var(--color-gray-two);
+    opacity: 0.21;
+    display: block;
+    position: absolute;
+    left: 0;
+}
+
+.register-form .register-control::before {
+    top: 0;
+}
+
+.register-form .register-control::after {
+    bottom: 0;
+}
+
+.register-form .register-group {
+    margin-bottom: 16px;
+}
+
+.register-form .register-group label {
+    color: var(--color-blue);
+    font-size: 1.8rem;
+    font-weight: 700;
+    line-height: 1.11%;
+    width: 100%;
+}
+
+.register-form .register-group input {
+    background: var(--color-gray-three);
+    color: var(--color-gray-one);
+    line-height: 1.33%;
+    /* 133.333% */
+    width: 100%;
+    border-radius: 8px;
+    padding: 8px;
+    outline: none;
+    border: none;
+    margin-top: 16px;
+}
+
+.register-form .register-password {
+    position: relative;
+}
+
+.register-form .register-group .register-icon {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    cursor: pointer;
+}
+
+.register-form .register-group .register-error {
+    margin-top: 5px;
+}
+
+.register-form .forgot-password {
+    color: #6091FF;
+    font-weight: 400;
+    line-height: 20px;
+    /* 133.333% */
+}
+
+.register-form .register-button {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.register-form .register-button .btn-register {
+    background: var(--color-blue);
+    cursor: pointer;
+}
