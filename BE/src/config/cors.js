@@ -1,11 +1,11 @@
-import { WHITELIST_DOMAIN } from '../utils/constant.js'
+import { WHITELIST_DOMAINS } from '../utils/constant.js'
 
 const corsOptions = {
     origin: function (origin, callback) {
         if (!origin)
             return callback(null, true)
 
-        if (WHITELIST_DOMAIN.includes(origin))
+        if (WHITELIST_DOMAINS.includes(origin))
             return callback(null, true)
 
         return callback(new Error('Not allowed by CORS'))

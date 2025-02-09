@@ -1,14 +1,25 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import Logo from "/src/assets/images/Logo.png";
 import "./Register.css";
 import { useForm } from "react-hook-form";
+import userService from "../../service/userService.js";
+import { toast } from "react-toastify";
 
 const Register = () => {
-  const { register, handleSubmit, formState } = useForm();
+  const { register, handleSubmit, getValues, formState } = useForm();
   const { errors } = formState;
+  const navigate = useNavigate();
 
-  const handleRegister = (data) => {
-    console.log(data);
+  const handleRegister = async (data) => {
+    const userInfo = {
+      name: data.name,
+      email: data.email,
+      password: data.password
+    }
+
+    const res = await userService.register(userInfo);
+    toast.success(res.data?.message)
+    navigate('/login')
   };
 
   return (
@@ -20,7 +31,7 @@ const Register = () => {
           </h1>
 
           <div className="register-control">
-          <div className="register-group">
+            <div className="register-group">
               <label htmlFor="name">Tên đăng nhập</label>
               <input
                 type="text"
@@ -52,7 +63,7 @@ const Register = () => {
               <label htmlFor="password">Mật khẩu</label>
               <div className="register-password">
                 <input
-                  type="text"
+                  type="password"
                   placeholder="Nhập mật khẩu"
                   id="password"
                   name="password"
@@ -65,19 +76,24 @@ const Register = () => {
             </div>
 
             <div className="register-group">
-              <label htmlFor="confirm_password">Mật khẩu</label>
-              <div className="register-confirm_passwordd">
+              <label htmlFor="confirm_password">Xác nhận mật khẩu</label>
+              <div className="register-confirm_password">
                 <input
-                  type="text"
-                  placeholder="Nhập mật khẩu"
+                  type="password"
+                  placeholder="Xác nhận mật khẩu"
                   id="confirm_password"
                   name="confirm_password"
-                  {...register("confirm-password", {
+                  {...register("confirm_password", {
                     required: "Vui lòng nhập xác nhận mật khẩu!",
+                    validate: (value) => {
+                      return value === getValues("password") || "Mật khẩu không khớp!";
+                    },
                   })}
                 />
               </div>
-              <p className="error register-error">{errors.confirm_password?.message}</p>
+              <p className="error register-error">
+                {errors.confirm_password?.message}
+              </p>
             </div>
           </div>
 

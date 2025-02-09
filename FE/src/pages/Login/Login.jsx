@@ -3,13 +3,19 @@ import Logo from "/src/assets/images/Logo.png";
 import "./Login.css";
 import Eyes from "/src/assets/images/Eyes1.svg";
 import { useForm } from "react-hook-form";
+import userService from "../../service/userService";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const { register, handleSubmit, formState } = useForm();
   const { errors } = formState;
 
-  const handleLogin = (data) => {
-    console.log(data);
+  const handleLogin = async (data) => {
+    const res = await userService.login(data);
+    const userInfo = JSON.stringify(res.data);
+
+    localStorage.setItem("userInfo", userInfo);
+    toast.success("Đăng nhập thành công!");
   };
 
   return (
@@ -49,7 +55,7 @@ const Login = () => {
                 />
                 <img src={Eyes} alt="icon" className="login-icon" />
               </div>
-                <p className="error login-error">{errors.password?.message}</p>
+              <p className="error login-error">{errors.password?.message}</p>
             </div>
 
             <NavLink to="/forgot-password" className="forgot-password">
