@@ -8,4 +8,8 @@ router.post("/register", userValidate.registerValidation, userController.registe
 
 router.post("/login", userValidate.loginValidattion, userController.login);
 
+router.delete("/logout", userController.logout);
+
+router.put("/refresh-token", userController.refreshToken);
+
 export default router;

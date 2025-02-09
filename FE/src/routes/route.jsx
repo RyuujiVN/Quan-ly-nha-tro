@@ -1,21 +1,39 @@
+import ProtectedRoute from "../components/ProtectedRoute/ProtectedRoute";
+import DefaultLayout from "../layout/DefaultLayout/DefaultLayout";
+import ForgotPassword from "../pages/ForgotPasswod/ForgotPassword";
 import Home from "../pages/Home/Home";
 import Login from "../pages/Login/Login";
-import Register from '../pages/Register/Register';
-
+import Register from "../pages/Register/Register";
 
 export const route = [
-    {
-        path: '/',
-        element: <Home />
-    },
+  {
+    element: <ProtectedRoute />,
+    children: [
+      {
+        path: "/",
+        element: <DefaultLayout />,
+        children: [
+          {
+            path: "/",
+            element: <Home />,
+          },
+        ],
+      },
+    ],
+  },
 
-    {
-        path: 'login',
-        element: <Login />
-    },
+  {
+    path: "login",
+    element: <Login />,
+  },
 
-    {
-        path: 'register',
-        element: <Register />
-    }
-]
+  {
+    path: "password/forgot",
+    element: <ForgotPassword />,
+  },
+
+  {
+    path: "register",
+    element: <Register />,
+  },
+];

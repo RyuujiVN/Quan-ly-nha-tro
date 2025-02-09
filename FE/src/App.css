@@ -25,6 +25,12 @@ body {
   font-family: "Lato", serif;
 }
 
+.container {
+  width: 1140px;
+  max-width: calc(100% - 60px);
+  margin: 0 auto;
+}
+
 a {
   text-decoration: none;
 }

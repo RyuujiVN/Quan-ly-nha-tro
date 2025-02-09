@@ -1,9 +1,16 @@
-
+import { useEffect } from "react";
+import instance from "../../api";
 
 const Home = () => {
-  return (
-    <div>Home</div>
-  )
-}
+  useEffect(() => {
+    const fetchApi = async () => {
+      const res = await instance.get("/dashboard");
+      console.log(res);
+    };
 
-export default Home
+    fetchApi();
+  }, []);
+  return <div>Home</div>;
+};
+
+export default Home;

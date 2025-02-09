@@ -11,9 +11,25 @@ const login = async (data) => {
     return response
 }
 
+const logout = async () => {
+    const response = await instance.delete("/user/logout")
+
+    localStorage.removeItem("userInfo");
+    return response
+}
+
+const refreshTokenApi = async () => {
+    const response = await instance.put("/user/refresh-token")
+
+    return response
+}
+
+
 const userService = {
     register,
-    login
+    login,
+    logout,
+    refreshTokenApi
 }
 
 export default userService

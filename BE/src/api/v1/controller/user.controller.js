@@ -65,8 +65,6 @@ const login = async (req, res, next) => {
             return
         }
 
-        console.log(user)
-
         const userInfo = {
             id: user.id,
             name: user.name,
@@ -78,12 +76,14 @@ const login = async (req, res, next) => {
             userInfo,
             process.env.ACCESS_SECRET_SIGNATURE,
             '1h'
+            // 5
         )
 
         const refreshToken = await JwtProvider.generateToken(
             userInfo,
             process.env.REFRESH_SECRET_SIGNATURE,
             '14 days'
+            // 15
         )
 
         res.cookie('accessToken', accessToken, {
@@ -106,9 +106,67 @@ const login = async (req, res, next) => {
     }
 }
 
+// [DELETE] /user/logout
+const logout = (req, res, next) => {
+    try {
+        res.clearCookie("accessToken");
+        res.clearCookie("refreshToken");
+
+        res.status(StatusCodes.OK).json({ message: "Đăng xuất thành công!" })
+    } catch (error) {
+        next(error)
+    }
+}
+
+// [POST] /user/refresh-token
+const refreshToken = async (req, res, next) => {
+    try {
+        const refreshToken = req.cookies?.refreshToken;
+
+        // Verify token
+        const refreshTokenDecoded = await JwtProvider.verifyToken(refreshToken, process.env.REFRESH_SECRET_SIGNATURE)
+
+        const userInfo = {
+            id: refreshTokenDecoded.id,
+            name: refreshTokenDecoded.name,
+            email: refreshTokenDecoded.email
+        }
+
+        // Tạo accessToken mới
+        const accessToken = await JwtProvider.generateToken(
+            userInfo,
+            process.env.ACCESS_SECRET_SIGNATURE,
+            '1h'
+            // 5
+        )
+
+        res.cookie('accessToken', accessToken, {
+            httpOnly: true,
+            secure: true,
+            sameSite: 'none',
+            maxAge: ms("14 days")
+        })
+
+        res.status(StatusCodes.CREATED).json({ message: "Tạo mới accessToken thành công!" });
+    } catch (error) {
+        next(error)
+    }
+}
+
+// [POST] /user/password/forgot
+const forgot = async (req, res, next) => {
+    try {
+        
+    } catch (error) {
+        next(error)
+    }
+}
+
 const userController = {
     register,
-    login
+    login,
+    logout,
+    refreshToken
 }
 
 export default userController

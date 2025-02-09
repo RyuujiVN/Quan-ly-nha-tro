@@ -1,7 +1,7 @@
-import { NavLink } from "react-router-dom";
-import Logo from "/src/assets/images/Logo.png";
+import { NavLink, useNavigate } from "react-router-dom";
+import Logo from "../../assets/images/Logo.png";
 import "./Login.css";
-import Eyes from "/src/assets/images/Eyes1.svg";
+import Eyes from "../../assets/images/Eyes1.svg";
 import { useForm } from "react-hook-form";
 import userService from "../../service/userService";
 import { toast } from "react-toastify";
@@ -10,12 +10,15 @@ const Login = () => {
   const { register, handleSubmit, formState } = useForm();
   const { errors } = formState;
 
+  const navigate = useNavigate();
+
   const handleLogin = async (data) => {
     const res = await userService.login(data);
     const userInfo = JSON.stringify(res.data);
 
     localStorage.setItem("userInfo", userInfo);
     toast.success("Đăng nhập thành công!");
+    navigate("/");
   };
 
   return (
@@ -36,6 +39,10 @@ const Login = () => {
                 name="email"
                 {...register("email", {
                   required: "Vui lòng nhập email!",
+                  minLength: {
+                    value: 3,
+                    message: "Email phải lớn hơn 3 kí tự",
+                  },
                 })}
               />
               <p className="error login-error">{errors.email?.message}</p>
@@ -58,7 +65,7 @@ const Login = () => {
               <p className="error login-error">{errors.password?.message}</p>
             </div>
 
-            <NavLink to="/forgot-password" className="forgot-password">
+            <NavLink to="/password/forgot" className="forgot-password">
               Quên mật khẩu?
             </NavLink>
           </div>
