@@ -5,13 +5,15 @@ const forgotPasswordSchema = new Schema({
     otp: String,
     expireAt: {
         type: Date,
-        expire: 180
+        expires: 60,
+        index: true
     }
 },
     {
         timestamps: true
     }
 )
+
 
 const ForgotPassword = mongoose.model("ForgotPassword", forgotPasswordSchema, "forgot-password")
 

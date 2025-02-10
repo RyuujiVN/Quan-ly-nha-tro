@@ -24,12 +24,33 @@ const refreshTokenApi = async () => {
     return response
 }
 
+const forgotPassword = async (data) => {
+    const response = await instance.post("/user/password/forgot", data)
+
+    return response
+}
+
+const sendOtp = async (data) => {
+    const response = await instance.post("/user/password/otp", data)
+
+    return response
+}
+
+const resetPassword = async (data) => {
+    const response = await instance.patch("/user/password/reset", data)
+
+    return response
+}
+
 
 const userService = {
     register,
     login,
     logout,
-    refreshTokenApi
+    refreshTokenApi,
+    forgotPassword,
+    sendOtp,
+    resetPassword
 }
 
 export default userService

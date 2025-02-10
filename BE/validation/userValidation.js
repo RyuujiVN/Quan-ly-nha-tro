@@ -41,9 +41,30 @@ const loginValidattion = async (req, res, next) => {
     }
 }
 
+const resetPasswordValidation = async (req, res, next) => {
+    // Tạo những điều kiện để validate
+    const correctCondition = Joi.object({
+        email: Joi.string().required().min(3).max(30).trim().strict(),
+        password: Joi.string().required().min(3).max(30).trim().strict(),
+        confirm_password: Joi.string().required().min(3).max(30).trim().strict(),
+    })
+
+    // validate dữ liệu
+    try {
+        await correctCondition.validateAsync(req.body, { abortEarly: true })
+
+        next()
+    } catch (error) {
+        res.status(StatusCodes.UNPROCESSABLE_ENTITY).json({
+            message: new Error(error).message
+        })
+    }
+}
+
 const userValidate = {
     registerValidation,
-    loginValidattion
+    loginValidattion,
+    resetPasswordValidation
 }
 
 export default userValidate

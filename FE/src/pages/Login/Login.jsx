@@ -14,11 +14,13 @@ const Login = () => {
 
   const handleLogin = async (data) => {
     const res = await userService.login(data);
-    const userInfo = JSON.stringify(res.data);
+    if (res) {
+      const userInfo = JSON.stringify(res.data);
 
-    localStorage.setItem("userInfo", userInfo);
-    toast.success("Đăng nhập thành công!");
-    navigate("/");
+      localStorage.setItem("userInfo", userInfo);
+      toast.success("Đăng nhập thành công!");
+      navigate("/");
+    }
   };
 
   return (

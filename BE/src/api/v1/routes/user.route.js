@@ -12,4 +12,10 @@ router.delete("/logout", userController.logout);
 
 router.put("/refresh-token", userController.refreshToken);
 
+router.post("/password/forgot", userController.forgot);
+
+router.post("/password/otp", userController.otp);
+
+router.patch("/password/reset", userValidate.resetPasswordValidation, userController.reset);
+
 export default router;

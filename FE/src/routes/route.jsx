@@ -4,6 +4,8 @@ import ForgotPassword from "../pages/ForgotPasswod/ForgotPassword";
 import Home from "../pages/Home/Home";
 import Login from "../pages/Login/Login";
 import Register from "../pages/Register/Register";
+import Otp from "../pages/Otp/Otp";
+import ResetPassword from "../pages/ResetPassword/ResetPassword";
 
 export const route = [
   {
@@ -30,6 +32,16 @@ export const route = [
   {
     path: "password/forgot",
     element: <ForgotPassword />,
+  },
+
+  {
+    path: "password/otp",
+    element: <Otp />,
+  },
+
+  {
+    path: "password/reset",
+    element: <ResetPassword />,
   },
 
   {

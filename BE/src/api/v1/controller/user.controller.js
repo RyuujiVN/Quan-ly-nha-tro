@@ -3,6 +3,9 @@ import Account from '../../../model/account.model.js'
 import bcrypt from 'bcrypt'
 import { JwtProvider } from '../../../provider/JwtProvider.js';
 import ms from 'ms';
+import { generateNumber } from '../../../helpers/generate.js';
+import ForgotPassword from '../../../model/forgot-password.model.js';
+import sendEmail from '../../../helpers/sendEmail.js';
 
 // [POST] /user/register
 const register = async (req, res, next) => {
@@ -156,7 +159,84 @@ const refreshToken = async (req, res, next) => {
 // [POST] /user/password/forgot
 const forgot = async (req, res, next) => {
     try {
-        
+        const user = await Account.findOne({
+            email: req.body.email
+        })
+
+        if (!user) {
+            res.status(StatusCodes.NOT_FOUND).json({ message: "Không tìm thấy tài khoản này!" })
+            return
+        }
+
+        const objectForgotPassword = {
+            email: user.email,
+            otp: generateNumber(6),
+            expireAt: Date.now()
+        }
+
+        await ForgotPassword(objectForgotPassword).save()
+
+        const subject = `Mã otp xác minh:`
+        const html = `
+            Mã otp lấy lại mật khẩu là <b>${objectForgotPassword.otp}</b>.
+            Thời hạn sử dụng là 3 phút
+        `;
+
+        sendEmail(user.email, subject, html)
+
+        res.status(StatusCodes.OK).json({ email: user.email })
+    } catch (error) {
+        next(error)
+    }
+}
+
+// [POST] /user/password/otp
+const otp = async (req, res, next) => {
+    try {
+        const otp = await ForgotPassword.findOne({
+            email: req.body.email,
+            otp: req.body.otp
+        })
+
+        console.log(otp)
+
+        if (!otp) {
+            res.status(StatusCodes.UNPROCESSABLE_ENTITY).json({ message: "Nhập sai mã otp hoặc otp đã hết hạn!" })
+            return
+        }
+
+        res.status(StatusCodes.OK).json({ email: otp.email })
+    } catch (error) {
+        next(error)
+    }
+}
+
+// [PATCH] /user/password/reset
+const reset = async (req, res, next) => {
+    try {
+        const { email, password, confirm_password } = req.body
+
+        const user = await Account.findOne({
+            email: email
+        })
+
+        if (!user) {
+            res.status(StatusCodes.UNAUTHORIZED).json({ message: "Không tìm thấy tài khoản!" })
+            return
+        }
+
+        if (password !== confirm_password) {
+            res.status(StatusCodes.UNPROCESSABLE_ENTITY).json({ message: "Xác nhận mật khẩu không trùng!" })
+            return
+        }
+
+        const newPassword = await bcrypt.hash(password, 10);
+
+        await Account.updateOne({ email: email }, {
+            password: newPassword
+        })
+
+        res.status(StatusCodes.OK).json({ message: "Đổi mật khẩu thành công!" })
     } catch (error) {
         next(error)
     }
@@ -166,7 +246,10 @@ const userController = {
     register,
     login,
     logout,
-    refreshToken
+    refreshToken,
+    forgot,
+    otp,
+    reset
 }
 
 export default userController

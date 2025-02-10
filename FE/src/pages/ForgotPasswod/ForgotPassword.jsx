@@ -1,9 +1,8 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Logo from "/src/assets/images/Logo.png";
 import "./ForgotPassword.css";
 import { useForm } from "react-hook-form";
 import userService from "../../service/userService.js";
-import { toast } from "react-toastify";
 
 const ForgotPassword = () => {
   const { register, handleSubmit, formState } = useForm();
@@ -11,8 +10,13 @@ const ForgotPassword = () => {
 
   const navigate = useNavigate();
 
-  const handleForgot = (data) => {
-    console.log(data);
+  const handleForgot = async (data) => {
+    const res = await userService.forgotPassword(data);
+    console.log(res)
+
+    if (res) {
+      navigate(`/password/otp?email=${res.data.email}`);
+    }
   };
 
   return (
