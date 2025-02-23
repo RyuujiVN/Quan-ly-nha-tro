@@ -9,71 +9,71 @@ const Sidebar = () => {
         <img src={Logo} alt="Logo" />
       </div>
 
-      <div className="sidebar-action">
-        <div className="sidebar-container">
+      <ul className="sidebar-action">
+        <li className="sidebar-container">
           <div className="sidebar-link">
             <NavLink to="/" className="link">
               Thống kê
             </NavLink>
           </div>
-        </div>
+        </li>
 
-        <div className="sidebar-container">
+        <li className="sidebar-container">
           <div className="sidebar-link">
             <NavLink to="/boarding-house" className="link">
               Phòng trọ
             </NavLink>
           </div>
-        </div>
+        </li>
 
-        <div className="sidebar-container">
+        <li className="sidebar-container">
           <div className="sidebar-link">
             <NavLink to="/guest" className="link">
               Khách thuê
             </NavLink>
           </div>
-        </div>
+        </li>
 
-        <div className="sidebar-container">
+        <li className="sidebar-container">
           <div className="sidebar-link">
             <NavLink to="/service" className="link">
               Dịch vụ
             </NavLink>
           </div>
-        </div>
+        </li>
 
-        <div className="sidebar-container">
+        <li className="sidebar-container">
           <div className="sidebar-link">
             <NavLink to="/electricity" className="link">
               Chỉ số điện
             </NavLink>
           </div>
-        </div>
+        </li>
 
-        <div className="sidebar-container">
+        <li className="sidebar-container">
           <div className="sidebar-link">
             <NavLink to="/water" className="link">
               Chỉ số nước
             </NavLink>
           </div>
-        </div>
+        </li>
 
-        <div className="sidebar-container">
+        <li className="sidebar-container">
           <div className="sidebar-link">
             <NavLink to="/cost-incurred" className="link">
               Chi phí phát sinh
             </NavLink>
           </div>
-        </div>
+        </li>
 
-        <div className="sidebar-container">
+        <li className="sidebar-container">
           <div className="sidebar-link">
             <NavLink to="/invoice" className="link">
               Hoá đơn
             </NavLink>
           </div>
-        </div>
-      </div>
+        </li>
+      </ul>
     </aside>
   );
 };

@@ -1,4 +1,68 @@
 .boarding-house {
-  background: var(--bg-blue-dark-one);
+  background: var(--bg-blue-dark-two);
+}
+
+.boarding-house.full-height {
   height: 100%;
+}
+
+.boarding-house .list-item {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.boarding-house .list-item .item {
+  border-radius: 14px;
+  border: 1px solid #313D4F;
+  background: var(--bg-blue-dark-one);
+  overflow: hidden;
+}
+
+.boarding-house .list-item .item-image {
+  width: 100%;
+  height: 317px;
+}
+
+.boarding-house .list-item .item-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.boarding-house .list-item .item-info {
+  padding: 48px 17px 17px 10px;
+}
+
+.boarding-house .list-item .item-name {
+  color: #FFF;
+  text-align: center;
+  font-size: 3.6rem;
+  font-weight: 700;
+  line-height: 1.78;
+}
+
+.boarding-house .list-item .item-action {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.boarding-house .list-item .item-action .btn {
+  padding: 5px 10px;
+  background: #323D4E;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.boarding-house .list-item .item-action .item-edit {
+  border-radius: 5px 0 0 5px;
+  border: 1px solid #979797;
+}
+
+.boarding-house .list-item .item-action .item-delete {
+  border-radius: 0 5px 5px 0;
+  border: 1px solid #979797;
+  border-left: none;
+  color: #EF3826;
 }

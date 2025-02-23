@@ -1,5 +1,10 @@
 import instance from "../api/index.js"
 
+const get = async () => {
+  const response = await instance.get("/boarding-house")
+
+  return response.data
+}
 
 const add = async (data) => {
   const response = await instance.post("/boarding-house/add", data, {
@@ -10,6 +15,7 @@ const add = async (data) => {
 
 
 const boardingHouseService = {
+  get,
   add
 }
 
