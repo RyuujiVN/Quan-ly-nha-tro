@@ -1,0 +1,37 @@
+.loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.loading .loading-inner {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.loading .loading-inner .loading-text {
+  font-size: 3.6rem;
+}
+
+.spinner-1 {
+  width: 50px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 8px solid;
+  border-color: #000 #0000;
+  animation: s1 1s infinite;
+}
+
+@keyframes s1 {
+  to {
+    transform: rotate(.5turn)
+  }
+}

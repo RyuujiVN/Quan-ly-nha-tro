@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 const ForgotPassword = () => {
   const { register, handleSubmit, formState, getValues } = useForm();
   const { errors } = formState;
-  const [emailParam, setEmailParam] = useSearchParams();
+  const [emailParam] = useSearchParams();
 
   const navigate = useNavigate();
 

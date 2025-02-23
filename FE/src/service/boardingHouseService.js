@@ -13,10 +13,23 @@ const add = async (data) => {
   return response
 }
 
+const edit = async (data, id) => {
+  const response = await instance.patch(`/boarding-house/edit/${id}`, data, {
+    headers: { "Content-Type": "multipart/form-data" },
+  })
+  return response
+}
+
+const deleteBoardingHouse = async (id) => {
+  const response = await instance.delete(`/boarding-house/delete/${id}`)
+  return response
+}
 
 const boardingHouseService = {
   get,
-  add
+  add,
+  edit,
+  deleteBoardingHouse
 }
 
 export default boardingHouseService

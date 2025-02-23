@@ -25,9 +25,39 @@ const add = async (req, res, next) => {
   }
 }
 
+// [PATCH] /boarding-house/edit
+const edit = async (req, res, next) => {
+  const id = req.params.id
+  try {
+    await BoardingHouse.updateOne({ _id: id }, req.body)
+
+    res.status(StatusCodes.OK).json({
+      message: "Cập nhật thành công!"
+    })
+  } catch (error) {
+    next(error)
+  }
+}
+
+// [DELETE] /boarding-house/edit/:id
+const deleteBoardingHouse = async (req, res, next) => {
+  const id = req.params.id
+  try {
+    await BoardingHouse.deleteOne({ _id: id })
+
+    res.status(StatusCodes.OK).json({
+      message: "Xoá thành công!"
+    })
+  } catch (error) {
+    next(error)
+  }
+}
+
 const boardingHouseController = {
   get,
-  add
+  add,
+  edit,
+  deleteBoardingHouse
 }
 
 export default boardingHouseController

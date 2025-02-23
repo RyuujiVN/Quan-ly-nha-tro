@@ -8,8 +8,14 @@ const upload = multer()
 
 const router = express.Router();
 
-router.get("/", authMiddleware.isAuthorized, boardingHouseController.get);
+router.use(authMiddleware.isAuthorized);
 
-router.post("/add", authMiddleware.isAuthorized, upload.single('thumbnail'), uploadMiddleware.uploadCloudinary, boardingHouseController.add);
+router.get("/", boardingHouseController.get);
+
+router.post("/add", upload.single('thumbnail'), uploadMiddleware.uploadCloudinary, boardingHouseController.add);
+
+router.patch("/edit/:id", upload.single('thumbnail'), uploadMiddleware.uploadCloudinary, boardingHouseController.edit);
+
+router.delete("/delete/:id", boardingHouseController.deleteBoardingHouse);
 
 export default router;
