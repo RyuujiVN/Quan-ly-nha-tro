@@ -5,12 +5,14 @@ import Eyes from "../../assets/images/Eyes1.svg";
 import { useForm } from "react-hook-form";
 import userService from "../../service/userService";
 import { toast } from "react-toastify";
+import { useState } from "react";
 
 const Login = () => {
   const { register, handleSubmit, formState } = useForm();
   const { errors } = formState;
 
   const navigate = useNavigate();
+  const [leak, setLeak] = useState(false);
 
   const handleLogin = async (data) => {
     const res = await userService.login(data);
@@ -21,6 +23,10 @@ const Login = () => {
       toast.success("Đăng nhập thành công!");
       navigate("/");
     }
+  };
+
+  const handleClick = () => {
+    setLeak(!leak);
   };
 
   return (
@@ -54,7 +60,7 @@ const Login = () => {
               <label htmlFor="password">Mật khẩu</label>
               <div className="login-password">
                 <input
-                  type="text"
+                  type={leak ? "text" : "password"}
                   placeholder="Nhập mật khẩu"
                   id="password"
                   name="password"
@@ -62,7 +68,12 @@ const Login = () => {
                     required: "Vui lòng nhập password!",
                   })}
                 />
-                <img src={Eyes} alt="icon" className="login-icon" />
+                <img
+                  src={Eyes}
+                  alt="icon"
+                  className="login-icon"
+                  onClick={handleClick}
+                />
               </div>
               <p className="error login-error">{errors.password?.message}</p>
             </div>

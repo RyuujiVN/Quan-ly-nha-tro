@@ -1,0 +1,89 @@
+import { StatusCodes } from 'http-status-codes'
+import Guest from '../../../model/guest.model.js'
+import searchHelper from '../../../helpers/searchHelper.js'
+import paginationHelper from '../../../helpers/paginationHelper.js'
+
+
+// [GET] /guest/
+const get = async (req, res, next) => {
+  const find = {}
+
+  // Search
+  const search = searchHelper(req.query)
+
+  if (search.regex) {
+    find.fullName = search.regex
+  }
+
+  // Pagination
+  const pagination = paginationHelper(req.query)
+
+  // Status
+  if (req.query.status) {
+    find.status = req.query.status
+  }
+
+  try {
+    const guestList = await Guest.find(find)
+      .limit(pagination.limitItem)
+      .skip(pagination.skipItem)
+
+    res.status(StatusCodes.OK).json(guestList)
+  } catch (error) {
+    next(error)
+  }
+}
+
+
+// [POST] /guest/add
+const add = async (req, res, next) => {
+  try {
+
+    req.body.birthDate = new Date(req.body.birthDate)
+    req.body.dayOfIssue = new Date(req.body.dayOfIssue)
+    req.body.rentalDate = new Date(req.body.rentalDate)
+
+    await Guest(req.body).save()
+    res.status(StatusCodes.CREATED).json({ message: "Thêm thành công!" })
+  } catch (error) {
+    next(error)
+  }
+}
+
+// [POST] /guest/edit/:id
+const edit = async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    req.body.birthDate = new Date(req.body.birthDate)
+    req.body.dayOfIssue = new Date(req.body.dayOfIssue)
+    req.body.rentalDate = new Date(req.body.rentalDate)
+
+    await Guest.updateOne({ _id: id }, req.body);
+
+    res.status(StatusCodes.OK).json({ message: "Cập nhật thành công!" })
+  } catch (error) {
+    res.status(StatusCodes.NOT_FOUND).json({ message: "Không tìm thấy dữ liệu" })
+  }
+}
+
+// [POST] /guest/delete/:id
+const deleteGuest = async (req, res, next) => {
+  try {
+    const id = req.params.id;
+
+    await Guest.deleteOne({ _id: id });
+
+    res.status(StatusCodes.OK).json({ message: "Xoá thành công!" })
+  } catch (error) {
+    res.status(StatusCodes.NOT_FOUND).json({ message: "Không tìm thấy dữ liệu" })
+  }
+}
+
+const guestController = {
+  get,
+  add,
+  edit,
+  deleteGuest
+}
+
+export default guestController

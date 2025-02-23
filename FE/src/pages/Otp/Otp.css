@@ -101,3 +101,8 @@
     border: none;
 }
 
+.disabled {
+    cursor: none;
+    opacity: 0.5;
+}
+

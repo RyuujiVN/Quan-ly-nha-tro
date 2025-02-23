@@ -6,6 +6,8 @@ import Login from "../pages/Login/Login";
 import Register from "../pages/Register/Register";
 import Otp from "../pages/Otp/Otp";
 import ResetPassword from "../pages/ResetPassword/ResetPassword";
+import VerifyAccount from "../pages/VerifyAccount/VerifyAccount";
+import BoardingHouse from "../pages/BoardingHouse/BoardingHouse";
 
 export const route = [
   {
@@ -19,6 +21,11 @@ export const route = [
             path: "/",
             element: <Home />,
           },
+
+          {
+            path: "/boarding-house",
+            element: <BoardingHouse />,
+          },
         ],
       },
     ],
@@ -27,6 +34,11 @@ export const route = [
   {
     path: "login",
     element: <Login />,
+  },
+
+  {
+    path: "verify",
+    element: <VerifyAccount />,
   },
 
   {

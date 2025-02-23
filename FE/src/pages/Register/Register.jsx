@@ -14,11 +14,12 @@ const Register = () => {
     const userInfo = {
       name: data.name,
       email: data.email,
-      password: data.password
-    }
+      password: data.password,
+    };
 
+    console.log(userInfo);
     const res = await userService.register(userInfo);
-    toast.success(res.data?.message)
+    toast.success(res.data?.message);
     navigate('/login')
   };
 
@@ -86,7 +87,10 @@ const Register = () => {
                   {...register("confirm_password", {
                     required: "Vui lòng nhập xác nhận mật khẩu!",
                     validate: (value) => {
-                      return value === getValues("password") || "Mật khẩu không khớp!";
+                      return (
+                        value === getValues("password") ||
+                        "Mật khẩu không khớp!"
+                      );
                     },
                   })}
                 />

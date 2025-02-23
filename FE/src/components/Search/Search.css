@@ -1,0 +1,32 @@
+.search {
+  width: 38.8rem;
+}
+
+.search-input {
+  width: 100%;
+  position: relative;
+}
+
+.search-input input {
+  width: 100%;
+  border-radius: 19px;
+  border: 0.6px solid var(--color-gray-three);
+  background: #323D4E;
+  padding: 11px 38px;
+  color: #fff;
+  opacity: 0.8;
+  outline: none;
+}
+
+.search-input .search-icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 1.7rem;
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+.btn-search {
+  display: none;
+}

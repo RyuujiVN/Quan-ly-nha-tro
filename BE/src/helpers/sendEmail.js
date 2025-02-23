@@ -14,12 +14,14 @@ const sendEmail = (userEmail, subject, html) => {
             rejectUnauthorized: false // (Chỉ dùng trong môi trường dev nếu có chứng chỉ tự ký)
         }
     });
+
     const mainOptions = { // thiết lập đối tượng, nội dung gửi mail
         from: process.env.USER_EMAIL,
         to: userEmail,
         subject: subject,
         html: html
     }
+    
     transporter.sendMail(mainOptions, (err, info) => {
         if (err) {
             console.log(err);

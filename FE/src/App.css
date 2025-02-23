@@ -22,11 +22,10 @@ html {
 
 body {
   font-size: 1.6rem;
-  font-family: "Lato", serif;
 }
 
 .container {
-  width: 1140px;
+  /* width: 1200px; */
   max-width: calc(100% - 60px);
   margin: 0 auto;
 }
@@ -44,8 +43,13 @@ a {
   border: none;
   border-radius: 25px;
   padding: 8px 28px;
+  cursor: pointer;
 }
 
 .error {
   color: red;
+}
+
+input {
+  outline: none;
 }

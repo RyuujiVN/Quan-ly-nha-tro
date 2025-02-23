@@ -15,7 +15,7 @@ const register = async (req, res, next) => {
         });
 
         if (existed) {
-            res.status(StatusCodes.CONFLICT).json({ messsage: "Email bị trùng!" });
+            res.status(StatusCodes.UNPROCESSABLE_ENTITY).json({ messsage: "Email bị trùng!" });
             return;
         }
 
@@ -50,7 +50,7 @@ const login = async (req, res, next) => {
 
         // Nếu không tìm thấy tài khoản
         if (!user) {
-            res.status(StatusCodes.UNAUTHORIZED).json({
+            res.status(StatusCodes.UNPROCESSABLE_ENTITY).json({
                 message: "Không tìm thấy tài khoản!"
             })
 
@@ -61,7 +61,7 @@ const login = async (req, res, next) => {
 
         // Nếu mật khẩu sai
         if (!passwordCorrect) {
-            res.status(StatusCodes.UNAUTHORIZED).json({
+            res.status(StatusCodes.UNPROCESSABLE_ENTITY).json({
                 message: "Sai tài khoản hoặc mật khẩu!"
             })
 
@@ -240,6 +240,11 @@ const reset = async (req, res, next) => {
     } catch (error) {
         next(error)
     }
+}
+
+// [POST] /user/verify
+const verify = async (req, res, next) => {
+    
 }
 
 const userController = {

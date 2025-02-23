@@ -1,0 +1,140 @@
+.modal {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.overlay {
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.80);
+  position: absolute;
+  opacity: 0;
+  animation: fadeOut 0.5s ease-in;
+  animation-fill-mode: both;
+}
+
+.modal .modal-content {
+  border-radius: 14px;
+  background: var(--bg-blue-dark-one);
+  z-index: 1;
+  animation: down 0.5s ease-in;
+  animation-fill-mode: both;
+  padding: 26px 54px;
+}
+
+.modal .modal-content .modal-title {
+  color: #FFF;
+  text-align: center;
+  font-size: 3.6rem;
+  font-weight: 700;
+  line-height: 20px;
+  /* 55.556% */
+  margin-bottom: 20px;
+}
+
+.modal-form .modal-type {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  align-items: center;
+}
+
+.modal-form .modal-file {
+  display: none;
+}
+
+.modal-form .modal-upload {
+  width: 216px;
+  height: 207px;
+  border: 2px dotted #979797;
+  border-radius: 25px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.modal-form .modal-upload .icon {
+  color: #979797;
+  font-size: 6rem;
+}
+
+.modal-form .modal-upload .modal-preview {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  object-fit: cover;
+}
+
+.modal-form .modal-input {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 20px;
+}
+
+.modal-form .modal-input label {
+  color: var(--color-blue);
+  font-size: 1.8rem;
+  font-weight: 700;
+  line-height: 20px;
+  /* 111.111% */
+}
+
+.modal-form .modal-input input {
+  padding: 10px 15px;
+  color: #fff;
+  background: var(--color-gray-three);
+  border-radius: 8px;
+  border: none;
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes down {
+  0% {
+    transform: translateY(20%);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.modal-button {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-top: 20px;
+  gap: 20px;
+}
+
+.modal-button .btn {
+  border-radius: 12px;
+  opacity: 0.7;
+}
+
+.modal-button .btn-close {
+  background: var(--color-gray-three);
+}
+
+.modal-button .btn-accept {
+  background: var(--color-blue);
+}

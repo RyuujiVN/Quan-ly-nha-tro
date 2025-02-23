@@ -1,6 +1,5 @@
 import Joi from 'joi'
 import { StatusCodes } from 'http-status-codes'
-import e from 'express'
 
 const registerValidation = async (req, res, next) => {
     // Tạo những điều kiện để validate

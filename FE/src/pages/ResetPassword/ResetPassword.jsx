@@ -1,4 +1,4 @@
-import { useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import Logo from "/src/assets/images/Logo.png";
 import "./ResetPassword.css";
 import { useForm } from "react-hook-form";

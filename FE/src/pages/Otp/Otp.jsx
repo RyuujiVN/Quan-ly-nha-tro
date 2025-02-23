@@ -31,7 +31,9 @@ const ForgotPassword = () => {
 
     if (count === 0) {
       clearInterval(timerId.current);
+
       sendOtp.current.innerHTML = "Gửi lại mã";
+      sendOtp.current.classList.remove("disabled");
     }
   }, [count]);
 
@@ -41,7 +43,10 @@ const ForgotPassword = () => {
     }, 1000);
 
     sendOtp.current.setAttribute("disabled", "");
+    sendOtp.current.classList.add("disabled");
+
     const email = emailParam.get("email");
+
     await userService.forgotPassword({
       email: email,
     });
