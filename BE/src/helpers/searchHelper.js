@@ -3,11 +3,12 @@ const searchHelper = (query) => {
     keyword: query.keyword
   }
 
-  if(search.keyword) {
+  if (search.keyword) {
+    search.keyword = search.keyword.trim();
     const regex = new RegExp(search.keyword, "i")
     search.regex = regex
   }
-  
+
   return search
 }
 

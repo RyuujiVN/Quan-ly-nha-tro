@@ -8,6 +8,7 @@ import Otp from "../pages/Otp/Otp";
 import ResetPassword from "../pages/ResetPassword/ResetPassword";
 import VerifyAccount from "../pages/VerifyAccount/VerifyAccount";
 import BoardingHouse from "../pages/BoardingHouse/BoardingHouse";
+import Room from "../pages/Room/Room";
 
 export const route = [
   {
@@ -25,6 +26,11 @@ export const route = [
           {
             path: "/boarding-house",
             element: <BoardingHouse />,
+          },
+
+          {
+            path: "/room/:id",
+            element: <Room />,
           },
         ],
       },

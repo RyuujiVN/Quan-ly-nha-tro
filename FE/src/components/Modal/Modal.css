@@ -128,7 +128,6 @@
 
 .modal-button .btn {
   border-radius: 12px;
-  opacity: 0.7;
 }
 
 .modal-button .btn-close {
@@ -137,4 +136,39 @@
 
 .modal-button .btn-accept {
   background: var(--color-blue);
+}
+
+.modal .modal-content:has(.modal-delete) {
+  padding: 0;
+  overflow: hidden;
+}
+
+.modal .modal-content .modal-delete {
+  width: 100%;
+  background: var(--color-red);
+  font-size: 3.2rem;
+  line-height: 0.62;
+  padding: 20px 0;
+}
+
+.modal .modal-action {
+  padding: 20px 61px;
+}
+
+.modal-warning {
+  color: #FFF;
+  width: 500px;
+  text-align: center;
+  font-size: 2.4rem;
+  font-weight: 700;
+  line-height: 1.5;
+  /* 150% */
+}
+
+.modal-button .btn-cancel {
+  background: #4B5668;
+}
+
+.modal-button .btn-delete {
+  background: var(--color-red);
 }
