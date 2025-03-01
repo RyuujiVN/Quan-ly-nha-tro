@@ -1,6 +1,7 @@
 import { FaPlus } from "react-icons/fa";
 import { IoIosRefresh } from "react-icons/io";
 import "./BoxHead.css";
+import Search from "../Search/Search";
 
 const BoxHead = (props) => {
   const { title, setAddModal, fetchApi } = props;
@@ -17,6 +18,8 @@ const BoxHead = (props) => {
           <button className="btn btn-add" onClick={() => setAddModal(true)}>
             <FaPlus className="icon" />
           </button>
+
+          <Search />
         </div>
       </div>
     </>

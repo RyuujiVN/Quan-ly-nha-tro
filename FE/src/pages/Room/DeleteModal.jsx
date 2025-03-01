@@ -1,17 +1,16 @@
 /* eslint-disable react/prop-types */
 import { toast } from "react-toastify";
-import boardingHouseService from "../../service/boardingHouseService";
-import Modal from "./Modal";
-import "./Modal.css";
+import "../../components/Modal/Modal.css";
+import Modal from "../../components/Modal/Modal";
+import roomController from "../../../../BE/src/api/v1/controller/room.controller";
 
 const DeleteModal = (props) => {
   const { title, content, setDeleteModal, id, setIsLoading } = props;
 
-
   const handleDelete = async () => {
     setIsLoading(true);
 
-    const res = await boardingHouseService.deleteBoardingHouse(id);
+    const res = await roomController.deleteRoom(id);
 
     setIsLoading(false);
     toast.success(res.data?.message);

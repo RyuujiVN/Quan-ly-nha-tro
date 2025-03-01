@@ -28,7 +28,6 @@ const uploadCloudinary = (req, res, next) => {
 
     async function upload(req) {
       let result = await streamUpload(req);
-      // console.log(req.file)
       req.body[req.file.fieldname] = result.secure_url
       next()
     }

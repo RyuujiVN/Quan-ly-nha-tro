@@ -1,10 +1,20 @@
 import { StatusCodes } from 'http-status-codes'
 import BoardingHouse from '../../../model/boarding-house.model.js'
+import Room from '../../../model/room.model.js'
+import searchHelper from '../../../helpers/searchHelper.js'
 
 // [GET] /boarding-house/
 const get = async (req, res, next) => {
+  const find = {}
+
   try {
-    const data = await BoardingHouse.find({})
+    const search = searchHelper(req.query);
+
+    if (search.regex) {
+      find.name = search.regex
+    }
+
+    const data = await BoardingHouse.find(find)
 
     res.status(StatusCodes.OK).json({ data: data })
   } catch (error) {
@@ -44,6 +54,8 @@ const deleteBoardingHouse = async (req, res, next) => {
   const id = req.params.id
   try {
     await BoardingHouse.deleteOne({ _id: id })
+
+    await Room.deleteMany({ boardingHouseId: id })
 
     res.status(StatusCodes.OK).json({
       message: "Xoá thành công!"

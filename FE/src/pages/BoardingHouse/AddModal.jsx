@@ -15,9 +15,9 @@ const AddModal = ({ setAddModal }) => {
 
   const handleAdd = async (data) => {
     data.thumbnail = image;
+
     const res = await boardingHouseService.add(data);
 
-    console.log(res);
     toast.success(res.data?.message);
   };
 

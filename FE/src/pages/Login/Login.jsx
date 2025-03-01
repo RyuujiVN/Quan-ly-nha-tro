@@ -15,6 +15,7 @@ const Login = () => {
   const [leak, setLeak] = useState(false);
 
   const handleLogin = async (data) => {
+    data.email = data.email.trim().toLowerCase();
     const res = await userService.login(data);
     if (res) {
       const userInfo = JSON.stringify(res.data);

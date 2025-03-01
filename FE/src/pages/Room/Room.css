@@ -1,0 +1,46 @@
+.room .room-description {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 50px;
+}
+
+.room .room-content .btn {
+  transition: all 0.3s ease;
+}
+
+.room .room-content .btn:hover {
+  background: var(--color-blue);
+  color: #fff;
+}
+
+.room .room-description .room-delete {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  color: var(--color-red);
+  padding: 0;
+  background: #323D4E;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.room .room-info .room-name {
+  font-size: 1.8rem;
+  text-align: left;
+  font-weight: 700;
+  line-height: 1.11;
+  /* 111.111% */
+}
+
+.room .room-info .room-status {
+  color: var(--color-blue);
+  font-weight: 700;
+  line-height: 1.25;
+  /* 125% */
+}
+
+.room .room-content .room-edit {
+  width: 100%;
+}

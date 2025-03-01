@@ -7,7 +7,7 @@ import { FaRegEdit } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import EditModal from "./EditModal";
 import Loading from "../../components/Loading/Loading";
-import DeleteModal from "../../components/Modal/DeleteModal";
+import DeleteModal from "./DeleteModal";
 import { useNavigate } from "react-router-dom";
 
 const BoardingHouse = () => {
