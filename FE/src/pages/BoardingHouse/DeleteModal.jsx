@@ -3,15 +3,19 @@ import { toast } from "react-toastify";
 import boardingHouseService from "../../service/boardingHouseService";
 import Modal from "../../components/Modal/Modal";
 import "../../components/Modal/Modal.css";
+import { useDispatch } from "react-redux";
+import { deleteBoardingHouse } from "../../actions/boardingHouseAction";
 
 const DeleteModal = (props) => {
   const { title, content, setDeleteModal, id, setIsLoading } = props;
+  const dispatch = useDispatch();
 
   const handleDelete = async () => {
     setIsLoading(true);
 
     const res = await boardingHouseService.deleteBoardingHouse(id);
 
+    dispatch(deleteBoardingHouse());
     setIsLoading(false);
     toast.success(res.data?.message);
     setDeleteModal(false);

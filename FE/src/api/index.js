@@ -27,12 +27,12 @@ instance.interceptors.response.use((response) => {
   // Do something with response error
 
   // Nếu là lỗi 401 thì logout
-  // if (error.response?.status === 401) {
-  //   userService.logout()
-  //     .then(() => {
-  //       location.href = '/login'
-  //     })
-  // }
+  if (error.response?.status === 401) {
+    userService.logout()
+      .then(() => {
+        location.href = '/login'
+      })
+  }
 
   // Nếu là lỗi 410 thì gọi api refresh token
   // Lấy các request api đang bị lỗi

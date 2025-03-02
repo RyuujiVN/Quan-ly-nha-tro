@@ -1,5 +1,4 @@
 /* eslint-disable react/prop-types */
-
 import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
@@ -8,15 +7,18 @@ import { FaPlus } from "react-icons/fa";
 import roomService from "../../service/roomService";
 import formatHelper from "../../helpers/formatHelper.js";
 import Loading from "../../components/Loading/Loading.jsx";
+import { useDispatch } from "react-redux";
+import { addRoom } from "../../actions/roomAction.js";
 
 const AddModal = ({ setAddModal, boardingHouseId }) => {
-  const { register, handleSubmit, formState } = useForm();
+  const { register, handleSubmit, formState, reset } = useForm();
   const { errors } = formState;
   const [preview, setPreview] = useState("");
   const [image, setImage] = useState("");
   const [formatPrice, setFormatPrice] = useState("");
-  const imageFile = useRef();
   const [isLoading, setIsLoading] = useState(false);
+  const dispatch = useDispatch();
+  const imageFile = useRef();
 
   const handleAdd = async (data) => {
     setIsLoading(true);
@@ -27,6 +29,10 @@ const AddModal = ({ setAddModal, boardingHouseId }) => {
 
     const res = await roomService.addRoom(data);
 
+    dispatch(addRoom(boardingHouseId));
+    setFormatPrice("");
+    reset();
+    setPreview("");
     setIsLoading(false);
     toast.success(res.data?.message);
   };
@@ -95,7 +101,7 @@ const AddModal = ({ setAddModal, boardingHouseId }) => {
                     },
                     pattern: {
                       value: /([A-Z])\d{2}/,
-                      message: "Mã phòng chứa một kí tự in hoa và 2 số.d"
+                      message: "Mã phòng chứa một kí tự in hoa và 2 số.d",
                     },
                   })}
                   placeholder="A01..."

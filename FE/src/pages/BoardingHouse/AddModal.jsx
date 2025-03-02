@@ -5,19 +5,29 @@ import { FaPlus } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import boardingHouseService from "../../service/boardingHouseService";
 import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { addBoardingHouse } from "../../actions/boardingHouseAction";
+import Loading from "../../components/Loading/Loading";
 
 const AddModal = ({ setAddModal }) => {
-  const { register, handleSubmit, formState } = useForm();
+  const { register, handleSubmit, formState, reset } = useForm();
   const { errors } = formState;
   const [preview, setPreview] = useState("");
   const [image, setImage] = useState("");
+  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
   const imageFile = useRef();
 
   const handleAdd = async (data) => {
+    setLoading(true);
     data.thumbnail = image;
 
     const res = await boardingHouseService.add(data);
 
+    setLoading(false);
+    dispatch(addBoardingHouse());
+    reset();
+    setPreview("");
     toast.success(res.data?.message);
   };
 
@@ -30,6 +40,8 @@ const AddModal = ({ setAddModal }) => {
   const handleChooseImage = () => {
     imageFile.current.click();
   };
+
+  if (loading) return <Loading />;
 
   return (
     <>

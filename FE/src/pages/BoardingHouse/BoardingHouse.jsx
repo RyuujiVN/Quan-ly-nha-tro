@@ -9,23 +9,25 @@ import EditModal from "./EditModal";
 import Loading from "../../components/Loading/Loading";
 import DeleteModal from "./DeleteModal";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchBoardingHouse } from "../../actions/boardingHouseAction";
 
 const BoardingHouse = () => {
   const [addModal, setAddModal] = useState(false);
   const [editModal, setEditModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
   const [item, setItem] = useState("");
-  const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const dispatch = useDispatch();
+  const data = useSelector((state) => state.boardingHouseReducer);
 
   const navigate = useNavigate();
 
   const fetchApi = async () => {
     setIsLoading(true);
 
-    const res = await boardingHouseService.get();
+    dispatch(fetchBoardingHouse());
 
-    setData(res.data);
     setIsLoading(false);
   };
 
@@ -52,11 +54,7 @@ const BoardingHouse = () => {
         >
           <div className="container">
             <div className="content">
-              <BoxHead
-                title="Tổng hợp căn trọ"
-                setAddModal={setAddModal}
-                fetchApi={fetchApi}
-              />
+              <BoxHead title="Tổng hợp căn trọ" setAddModal={setAddModal} />
 
               <div className="list-item">
                 {data &&

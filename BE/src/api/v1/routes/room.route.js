@@ -14,6 +14,8 @@ router.get("/", roomController.get)
 
 router.post("/add", upload.single("thumbnail"), uploadMiddleware.uploadCloudinary, roomController.add);
 
+router.patch("/edit/:id", upload.single("thumbnail"), uploadMiddleware.uploadCloudinary, roomController.editRoom);
+
 router.delete("/delete/:id", roomController.deleteRoom);
 
 export default router;

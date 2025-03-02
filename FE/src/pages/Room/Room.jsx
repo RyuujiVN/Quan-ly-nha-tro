@@ -4,38 +4,35 @@ import Loading from "../../components/Loading/Loading";
 import { useParams, useSearchParams } from "react-router-dom";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import AddModal from "./AddModal";
-import EditModal from "../BoardingHouse/EditModal";
+import EditModal from "./EditModal";
 import DeleteModal from "./DeleteModal";
-import roomService from "../../service/roomService";
 import "./Room.css";
-import { toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchRoom } from "../../actions/roomAction";
+import formatHelper from "../../helpers/formatHelper";
 
 const Room = () => {
   const [addModal, setAddModal] = useState(false);
   const [editModal, setEditModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
   const [item, setItem] = useState("");
-  const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const data = useSelector((state) => state.roomReducer);
   const [searchParams] = useSearchParams();
   const boardingHouseId = useParams().id;
+  const dispatch = useDispatch();
 
   const keyword = searchParams.get("keyword");
 
-  const fetchApi = async () => {
+  useEffect(() => {
     setIsLoading(true);
 
-    const res = await roomService.getRooms(boardingHouseId, keyword);
-
-    setData(res.data.rooms);
+    dispatch(fetchRoom(boardingHouseId, keyword));
     setIsLoading(false);
-  };
-
-  useEffect(() => {
-    fetchApi();
   }, [keyword]);
 
   const handleEdit = (item) => {
+    item.price = formatHelper.format(item.price);
     setItem(item);
     setEditModal(true);
   };
@@ -57,7 +54,6 @@ const Room = () => {
               <BoxHead
                 title={`Danh sách phòng trọ`}
                 setAddModal={setAddModal}
-                fetchApi={fetchApi}
               />
 
               <div className="list-item">
@@ -104,7 +100,7 @@ const Room = () => {
               />
             )}
 
-            {editModal && <EditModal setEditModal={setEditModal} item={item} />}
+            {editModal && <EditModal setEditModal={setEditModal} room={item} />}
 
             {deleteModal && (
               <DeleteModal
@@ -113,6 +109,7 @@ const Room = () => {
                 title="Xoá phòng trọ"
                 content="Bạn xác nhận muốn xoá phòng này? Sau khi bạn xoá, mọi thông tin liên quan sẽ không thể khôi phục được nữa."
                 setIsLoading={setIsLoading}
+                boardingHouseId={boardingHouseId}
               />
             )}
           </div>

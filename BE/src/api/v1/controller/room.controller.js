@@ -3,11 +3,12 @@ import Room from "../../../model/room.model.js"
 import searchHelper from '../../../helpers/searchHelper.js'
 import paginationHelper from '../../../helpers/paginationHelper.js'
 
-// [GET] /room/get
+// [GET] /api/v1/room/get
 const get = async (req, res) => {
-  const { boardingHouseId } = req.query.boardingHouseId
+  const { boardingHouseId } = req.query
+
   const find = {
-    boardingHouseId: req.query.boardingHouseId
+    boardingHouseId: boardingHouseId
   }
 
   // Search
@@ -25,7 +26,7 @@ const get = async (req, res) => {
       .skip(pagination.skipItem)
 
     res.status(StatusCodes.OK).json({
-      rooms: rooms
+      data: rooms
     })
   } catch (error) {
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(error)
@@ -33,7 +34,7 @@ const get = async (req, res) => {
 }
 
 
-// [POST] /room/add
+// [POST] /api/v1/room/add
 const add = async (req, res) => {
   try {
     const room = await Room.findOne({
@@ -57,11 +58,28 @@ const add = async (req, res) => {
   }
 }
 
-// [POST] /room/delete/:id
+// [PATCH] /api/v1/room/edit/:id
+const editRoom = async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    console.o
+
+    req.body.price = parseInt(req.body.price)
+    req.body.roomArea = parseInt(req.body.roomArea)
+
+    await Room.updateOne({ _id: id }, req.body)
+    res.status(StatusCodes.OK).json({
+      message: "Chỉnh sửa thành công!"
+    })
+  } catch (error) {
+
+  }
+}
+
+// [POST] /api/v1/room/delete/:id
 const deleteRoom = async (req, res, next) => {
   try {
     const id = req.params.id;
-    console.log(id)
 
     await Room.deleteOne({ _id: id });
 
@@ -74,6 +92,7 @@ const deleteRoom = async (req, res, next) => {
 const roomController = {
   get,
   add,
+  editRoom,
   deleteRoom
 }
 

@@ -20,7 +20,7 @@ const Register = () => {
     console.log(userInfo);
     const res = await userService.register(userInfo);
     toast.success(res.data?.message);
-    navigate('/login')
+    navigate("/login");
   };
 
   return (
@@ -55,6 +55,10 @@ const Register = () => {
                 name="email"
                 {...register("email", {
                   required: "Vui lòng nhập email!",
+                  pattern: {
+                    value: /[a-zA-Z0-9\\._+-]+@[a-zA-Z0-9\\._+-]+.[a-zA-Z0-9\\._+-]/,
+                    message: "Vui lòng nhập email đúng định dạng!",
+                  },
                 })}
               />
               <p className="error register-error">{errors.email?.message}</p>

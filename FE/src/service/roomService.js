@@ -8,7 +8,7 @@ const getRooms = async (id, keyword) => {
     }
   })
 
-  return response
+  return response.data
 }
 
 const addRoom = async (data) => {
@@ -19,6 +19,15 @@ const addRoom = async (data) => {
   return respone
 }
 
+const editRoom = async (data, id) => {
+  const respone = await instance.patch(`/room/edit/${id}`, data, {
+    headers: { "Content-Type": "multipart/form-data" },
+  })
+
+  return respone
+}
+
+
 const deleteRoom = async (id) => {
   const response = await instance.delete(`/room/delete/${id}`)
   return response
@@ -27,6 +36,7 @@ const deleteRoom = async (id) => {
 const roomService = {
   getRooms,
   addRoom,
+  editRoom,
   deleteRoom
 }
 

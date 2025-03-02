@@ -6,25 +6,33 @@ import { FaPlus } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import boardingHouseService from "../../service/boardingHouseService";
 import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { editBoardingHouse } from "../../actions/boardingHouseAction";
+import Loading from "../../components/Loading/Loading";
 
 const EditModal = ({ setEditModal, item }) => {
   const { register, handleSubmit, formState } = useForm({
-    defaultValues: item
+    defaultValues: item,
   });
 
   const { errors } = formState;
   const [preview, setPreview] = useState(item.thumbnail);
   const [image, setImage] = useState("");
+  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
   const imageFile = useRef();
 
   const handleEdit = async (data) => {
-    if(image) {
+    setLoading(true);
+
+    if (image) {
       data.thumbnail = image;
     }
 
     const res = await boardingHouseService.edit(data, item._id);
 
-    
+    dispatch(editBoardingHouse());
+    setLoading(false);
     toast.success(res.data?.message);
   };
 
@@ -38,6 +46,7 @@ const EditModal = ({ setEditModal, item }) => {
     imageFile.current.click();
   };
 
+  if (loading) return <Loading />;
 
   return (
     <>
@@ -45,10 +54,7 @@ const EditModal = ({ setEditModal, item }) => {
         <h3 className="modal-title">Thông tin căn trọ</h3>
         <form className="modal-form" onSubmit={handleSubmit(handleEdit)}>
           <div className="modal-type">
-            <div
-              className="modal-upload"
-              onClick={handleChooseImage}
-            >
+            <div className="modal-upload" onClick={handleChooseImage}>
               <input
                 type="file"
                 name="thumbnail"
@@ -64,11 +70,7 @@ const EditModal = ({ setEditModal, item }) => {
 
               <FaPlus className="icon" />
               {preview && (
-                <img
-                  src={preview}
-                  alt={item?.name}
-                  className="modal-preview"
-                />
+                <img src={preview} alt={item?.name} className="modal-preview" />
               )}
             </div>
 

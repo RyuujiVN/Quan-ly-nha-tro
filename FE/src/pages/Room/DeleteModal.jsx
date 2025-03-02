@@ -2,16 +2,21 @@
 import { toast } from "react-toastify";
 import "../../components/Modal/Modal.css";
 import Modal from "../../components/Modal/Modal";
-import roomController from "../../../../BE/src/api/v1/controller/room.controller";
+import roomService from "../../service/roomService";
+import { useDispatch } from "react-redux";
+import { deleteRoom } from "../../actions/roomAction";
 
 const DeleteModal = (props) => {
-  const { title, content, setDeleteModal, id, setIsLoading } = props;
+  const { title, content, setDeleteModal, id, setIsLoading, boardingHouseId } =
+    props;
+  const dispatch = useDispatch();
 
   const handleDelete = async () => {
     setIsLoading(true);
 
-    const res = await roomController.deleteRoom(id);
+    const res = await roomService.deleteRoom(id);
 
+    dispatch(deleteRoom(boardingHouseId));
     setIsLoading(false);
     toast.success(res.data?.message);
     setDeleteModal(false);
