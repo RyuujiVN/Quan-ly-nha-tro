@@ -4,12 +4,13 @@ const guestSchema = new Schema({
   fullName: String,
   birthDate: Date,
   identityCard: String,
-  room: String,
   status: String,
   phone: String,
   email: String,
   dayOfIssue: Date,
-  rentalDate: Date
+  rentalDate: Date,
+  boardingHouseRent: String,
+  roomRent: String
 },
   {
     timestamps: true

@@ -17,7 +17,7 @@ const validation = async (req, res, next) => {
   }
 
   try {
-    await correctCondition.validateAsync(data, { abortEarly: true })
+    await correctCondition.validateAsync(data, { abortEarly: false })
 
     next()
   } catch (error) {

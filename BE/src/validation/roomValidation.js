@@ -13,8 +13,6 @@ const validation = async (req, res, next) => {
     boardingHouseId: Joi.string().required().trim().strict()
   })
 
-  console.log(req.body)
-
   const data = {
     name: req.body.name,
     roomArea: req.body.roomArea,
@@ -26,7 +24,7 @@ const validation = async (req, res, next) => {
 
   // Validate
   try {
-    await correctCondition.validateAsync(data, { abortEarly: true })
+    await correctCondition.validateAsync(data, { abortEarly: false })
 
     next()
   } catch (error) {

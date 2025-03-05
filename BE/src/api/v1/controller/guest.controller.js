@@ -2,6 +2,8 @@ import { StatusCodes } from 'http-status-codes'
 import Guest from '../../../model/guest.model.js'
 import searchHelper from '../../../helpers/searchHelper.js'
 import paginationHelper from '../../../helpers/paginationHelper.js'
+import BoardingHouse from '../../../model/boarding-house.model.js'
+import Room from "../../../model/room.model.js"
 
 
 // [GET] /guest/
@@ -28,7 +30,24 @@ const get = async (req, res, next) => {
       .limit(pagination.limitItem)
       .skip(pagination.skipItem)
 
-    res.status(StatusCodes.OK).json(guestList)
+
+    const newList = await Promise.all(
+      guestList.map(async (guest) => {
+        const boardingHouse = await BoardingHouse.findOne({ _id: guest.boardingHouseRent });
+        const room = await Room.findOne({ _id: guest.roomRent });
+
+        const a = guest.toObject();
+
+        return {
+          ...a,
+          room: room.name,
+          boardingHouse: boardingHouse.name
+        };
+
+      })
+    )
+
+    res.status(StatusCodes.OK).json({ data: newList })
   } catch (error) {
     next(error)
   }

@@ -1,16 +1,19 @@
 import express from 'express'
 import authMiddleware from '../../../middleware/authMiddlware.js';
 import guestController from '../controller/guest.controller.js';
+import guestValidation from '../../../validation/guestValidation.js';
 
 
 const router = express.Router();
 
-router.get("/", authMiddleware.isAuthorized, guestController.get)
+router.use(authMiddleware.isAuthorized)
 
-router.post("/add", authMiddleware.isAuthorized, guestController.add);
+router.get("/", guestController.get)
 
-router.patch("/edit/:id", authMiddleware.isAuthorized, guestController.edit);
+router.post("/add", guestValidation.validation, guestController.add);
 
-router.delete("/delete/:id", authMiddleware.isAuthorized, guestController.deleteGuest);
+router.patch("/edit/:id", guestValidation.validation, guestController.edit);
+
+router.delete("/delete/:id", guestController.deleteGuest);
 
 export default router;

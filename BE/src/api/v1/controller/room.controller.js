@@ -63,8 +63,6 @@ const editRoom = async (req, res, next) => {
   try {
     const id = req.params.id;
 
-    console.log(req.body)
-
     await Room.updateOne({ _id: id }, req.body)
     res.status(StatusCodes.OK).json({
       message: "Chỉnh sửa thành công!"

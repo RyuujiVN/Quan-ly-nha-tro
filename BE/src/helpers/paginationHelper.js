@@ -1,6 +1,6 @@
 const paginationHelper = (query, total) => {
   const pagination = {
-    limitItem: 5,
+    limitItem: 10,
     skipItem: 0
   }
 
