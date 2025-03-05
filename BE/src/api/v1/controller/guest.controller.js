@@ -30,6 +30,8 @@ const get = async (req, res, next) => {
       .limit(pagination.limitItem)
       .skip(pagination.skipItem)
 
+    console.log(guestList)
+
 
     const newList = await Promise.all(
       guestList.map(async (guest) => {
@@ -40,12 +42,14 @@ const get = async (req, res, next) => {
 
         return {
           ...a,
-          room: room.name,
-          boardingHouse: boardingHouse.name
+          room: room?.name,
+          boardingHouse: boardingHouse?.name
         };
 
       })
     )
+
+    console.log(newList)
 
     res.status(StatusCodes.OK).json({ data: newList })
   } catch (error) {
@@ -57,6 +61,18 @@ const get = async (req, res, next) => {
 // [POST] /guest/add
 const add = async (req, res, next) => {
   try {
+
+    const guest = Guest.findOne({
+      identityCard: req.body.identityCard
+    })
+
+    if (guest) {
+      res.status(StatusCodes.CONFLICT).json({
+        message: "Khách thuê đã tồn tại!"
+      })
+
+      return;
+    }
 
     req.body.birthDate = new Date(req.body.birthDate)
     req.body.dayOfIssue = new Date(req.body.dayOfIssue)
