@@ -2,7 +2,6 @@
 import { useEffect, useState } from "react";
 import BoxHead from "../../components/BoxHead/BoxHead";
 import AddModal from "./AddModal";
-import boardingHouseService from "../../service/boardingHouseService";
 import { FaRegEdit } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import EditModal from "./EditModal";
@@ -23,16 +22,12 @@ const BoardingHouse = () => {
 
   const navigate = useNavigate();
 
-  const fetchApi = async () => {
+  useEffect(() => {
     setIsLoading(true);
 
     dispatch(fetchBoardingHouse());
 
     setIsLoading(false);
-  };
-
-  useEffect(() => {
-    fetchApi();
   }, []);
 
   const handleEdit = (item) => {

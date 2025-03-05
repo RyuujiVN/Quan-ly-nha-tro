@@ -1,0 +1,47 @@
+.table {
+  width: 100%;
+  border-radius: 8px 8px 0px 0px;
+  overflow: hidden;
+}
+
+.table th,
+.table td {
+  text-align: center;
+  color: #fff;
+}
+
+.table td {
+  border-bottom: 1px solid rgba(151, 151, 151, 0.6);
+  padding: 20px 0;
+}
+
+.table th {
+  padding: 16px 0;
+}
+
+.table .table-head {
+  background: var(--color-gray-four);
+}
+
+.table .table-body {
+  margin-top: 3px;
+  border-radius: 0px 0px 14px 14px;
+  border: 1px solid #313D4F;
+  background: #273142;
+}
+
+
+.table-action .btn {
+  background: var(--color-gray-four);
+  padding: 8px 20px;
+}
+
+.table-action .table-edit {
+  border-radius: 5px 0 0 5px;
+  border-right: 1px solid #979797;
+}
+
+.table-action .table-delete {
+  border-radius: 0 5px 5px 0;
+  color: var(--color-red)
+}

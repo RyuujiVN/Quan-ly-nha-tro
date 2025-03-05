@@ -7,6 +7,8 @@ const router = express.Router()
 
 router.use(authMiddleware.isAuthorized)
 
+router.get('/', serviceController.get)
+
 router.post('/add', serviceValidation.validation, serviceController.add)
 
 router.patch('/edit/:id', serviceValidation.validation, serviceController.edit)

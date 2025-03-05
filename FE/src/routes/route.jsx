@@ -9,6 +9,8 @@ import ResetPassword from "../pages/ResetPassword/ResetPassword";
 import VerifyAccount from "../pages/VerifyAccount/VerifyAccount";
 import BoardingHouse from "../pages/BoardingHouse/BoardingHouse";
 import Room from "../pages/Room/Room";
+import Service from "../pages/Service/Service";
+import Guest from "../pages/Guest/Guest";
 
 export const route = [
   {
@@ -31,6 +33,16 @@ export const route = [
           {
             path: "/room/:id",
             element: <Room />,
+          },
+
+          {
+            path: "/service",
+            element: <Service />,
+          },
+
+          {
+            path: "/guest",
+            element: <Guest />,
           },
         ],
       },

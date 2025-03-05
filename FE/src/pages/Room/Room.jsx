@@ -6,6 +6,7 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import AddModal from "./AddModal";
 import EditModal from "./EditModal";
 import DeleteModal from "./DeleteModal";
+
 import "./Room.css";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchRoom } from "../../actions/roomAction";
@@ -112,6 +113,8 @@ const Room = () => {
                 boardingHouseId={boardingHouseId}
               />
             )}
+
+            
           </div>
         </div>
       </>

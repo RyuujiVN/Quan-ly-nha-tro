@@ -9,6 +9,7 @@ import formatHelper from "../../helpers/formatHelper.js";
 import Loading from "../../components/Loading/Loading.jsx";
 import { useDispatch } from "react-redux";
 import { editRoom } from "../../actions/roomAction.js";
+import ServiceModal from "./ServiceModal.jsx";
 
 const EditModal = ({ setEditModal, room }) => {
   const { register, handleSubmit, formState } = useForm({
@@ -16,6 +17,7 @@ const EditModal = ({ setEditModal, room }) => {
   });
   const { errors } = formState;
   const [preview, setPreview] = useState(room.thumbnail);
+  const [serviceModal, setServiceModal] = useState(false);
   const [image, setImage] = useState("");
   const [formatPrice, setFormatPrice] = useState(room.price);
   const [isLoading, setIsLoading] = useState(false);
@@ -25,8 +27,12 @@ const EditModal = ({ setEditModal, room }) => {
   const handleEdit = async (data) => {
     setIsLoading(true);
 
-    data.thumbnail = image;
-    data.price = formatHelper.parseNumber(data.price);
+    if (image) {
+      data.thumbnail = image;
+    }
+
+    data.price = parseInt(formatHelper.parseNumber(data.price));
+    data.roomArea = parseInt(data.roomArea);
 
     const res = await roomService.editRoom(data, room._id);
 
@@ -170,7 +176,7 @@ const EditModal = ({ setEditModal, room }) => {
               Thoát
             </div>
 
-            <div className="btn btn-service">Dịch vụ phòng</div>
+            <div className="btn btn-service" onClick={() => setServiceModal(true)}>Dịch vụ phòng</div>
 
             <button type="submit" className="btn btn-accept">
               OK
@@ -178,6 +184,10 @@ const EditModal = ({ setEditModal, room }) => {
           </div>
         </form>
       </Modal>
+
+      {serviceModal && (
+        <ServiceModal setServiceModal={setServiceModal} room={room} />
+      )}
     </>
   );
 };

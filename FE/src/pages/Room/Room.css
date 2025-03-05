@@ -44,3 +44,7 @@
 .room .room-content .room-edit {
   width: 100%;
 }
+
+table:has(.table-service) {
+  width: 900px;
+}

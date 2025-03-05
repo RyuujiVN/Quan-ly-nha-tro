@@ -4,6 +4,10 @@ const serviceSchema = new Schema({
   name: String,
   price: Number,
   unit: String,
+  quantity: {
+    type: Number,
+    default: 1
+  }
 },
   {
     timestamps: true

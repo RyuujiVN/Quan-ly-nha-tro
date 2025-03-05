@@ -62,10 +62,8 @@ const add = async (req, res) => {
 const editRoom = async (req, res, next) => {
   try {
     const id = req.params.id;
-    console.o
 
-    req.body.price = parseInt(req.body.price)
-    req.body.roomArea = parseInt(req.body.roomArea)
+    console.log(req.body)
 
     await Room.updateOne({ _id: id }, req.body)
     res.status(StatusCodes.OK).json({

@@ -8,6 +8,10 @@ const roomSchema = new mongoose.Schema({
   thumbnail: String,
   status: String,
   boardingHouseId: String,
+  service_id: {
+    type: Array,
+    default: []
+  }
 });
 
 const Room = mongoose.model("Room", roomSchema, "room");
