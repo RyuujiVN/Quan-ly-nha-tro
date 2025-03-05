@@ -1,0 +1,29 @@
+.guest {
+  background: var(--bg-blue-dark-two);
+}
+
+.guest.full-height {
+  height: 100%;
+}
+
+.guest-info {
+  width: 600px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+
+.status {
+  padding: 6px 15px;
+  color: #fff;
+  border-radius: 13px;
+}
+
+.status.status-green {
+  background: #00B69B;
+}
+
+
+.status.status-green {
+  background: var(--color-red)
+}
