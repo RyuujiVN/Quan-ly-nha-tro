@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import Modal from "../../components/Modal/Modal";
-import { FaPlus } from "react-icons/fa";
 import formatHelper from "../../helpers/formatHelper.js";
 import Loading from "../../components/Loading/Loading.jsx";
 import { useDispatch, useSelector } from "react-redux";
@@ -25,7 +24,7 @@ const AddModal = ({ setAddModal }) => {
     console.log(data);
     const res = await guestService.addGuest(data);
 
-    // reset();
+    reset();
     dispatch(addGuest());
     setLoading(false);
     toast.success(res.data?.message);
@@ -46,7 +45,7 @@ const AddModal = ({ setAddModal }) => {
   return (
     <>
       <Modal>
-        <div className="modal-title">Thông tin dịch vụ</div>
+        <div className="modal-title">Thông tin khách thuê</div>
         <form
           className="service-form modal-form"
           onSubmit={handleSubmit(handleAdd)}
@@ -90,7 +89,7 @@ const AddModal = ({ setAddModal }) => {
                   })}
                 />
 
-                <p className="error">{errors?.birthday?.message}</p>
+                <p className="error">{errors?.birthDate?.message}</p>
               </div>
 
               <div className="modal-input">
@@ -198,8 +197,10 @@ const AddModal = ({ setAddModal }) => {
                   id="dayOfIssue"
                   {...register("dayOfIssue", {
                     required: "Vui lòng nhập ngày cấp!",
-                    value: new Date().toISOString().split("T")[0],
-                    message: "Ngày sinh không được lớn hơn hôm nay!",
+                    max: {
+                      value: new Date().toISOString().split("T")[0],
+                      message: "Ngày cấp không được lớn hơn hôm nay!",
+                    },
                   })}
                 />
 
@@ -234,9 +235,9 @@ const AddModal = ({ setAddModal }) => {
                   name="rentalDate"
                   id="rentalDate"
                   {...register("rentalDate", {
-                    required: "Vui lòng nhập ngày cấp!",
+                    required: "Vui lòng nhập ngày thuê!",
+                    value: formatHelper.formatDate(new Date()),
                   })}
-                  value={formatHelper.formatDate(new Date())}
                 />
 
                 <p className="error">{errors?.rentalDate?.message}</p>

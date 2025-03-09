@@ -2,6 +2,7 @@ import { StatusCodes } from 'http-status-codes'
 import Room from "../../../model/room.model.js"
 import searchHelper from '../../../helpers/searchHelper.js'
 import paginationHelper from '../../../helpers/paginationHelper.js'
+import Guest from '../../../model/guest.model.js'
 
 // [GET] /api/v1/room/get
 const get = async (req, res) => {
@@ -25,8 +26,18 @@ const get = async (req, res) => {
       .limit(pagination.limitItem)
       .skip(pagination.skipItem)
 
+    const newList = await Promise.all(
+      rooms.map(async (room) => {
+        const guest = await Guest.findOne({ roomRent: room._id }).select("fullName");
+        return {
+          ...room.toObject(), // Chuyển document MongoDB về object JS
+          guestName: guest?.fullName
+        };
+      })
+    )
+
     res.status(StatusCodes.OK).json({
-      data: rooms
+      data: newList
     })
   } catch (error) {
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(error)

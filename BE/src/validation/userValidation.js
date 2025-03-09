@@ -1,6 +1,7 @@
 import Joi from 'joi'
 import { StatusCodes } from 'http-status-codes'
 
+
 const registerValidation = async (req, res, next) => {
     // Tạo những điều kiện để validate
     const correctCondition = Joi.object({
@@ -11,7 +12,7 @@ const registerValidation = async (req, res, next) => {
 
     // Validate dữ liệu được gửi từ FE
     try {
-        await correctCondition.validateAsync(req.body, { abortEarly: false })
+        await correctCondition.validateAsync(req.body, { abortEarly: true, allowUnknown: true })
 
         next()
     } catch (error) {

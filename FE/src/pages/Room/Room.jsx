@@ -22,7 +22,6 @@ const Room = () => {
   const [searchParams] = useSearchParams();
   const boardingHouseId = useParams().id;
   const dispatch = useDispatch();
-
   const keyword = searchParams.get("keyword");
 
   useEffect(() => {
@@ -113,8 +112,6 @@ const Room = () => {
                 boardingHouseId={boardingHouseId}
               />
             )}
-
-            
           </div>
         </div>
       </>

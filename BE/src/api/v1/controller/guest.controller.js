@@ -2,8 +2,7 @@ import { StatusCodes } from 'http-status-codes'
 import Guest from '../../../model/guest.model.js'
 import searchHelper from '../../../helpers/searchHelper.js'
 import paginationHelper from '../../../helpers/paginationHelper.js'
-import BoardingHouse from '../../../model/boarding-house.model.js'
-import Room from "../../../model/room.model.js"
+import Room from '../../../model/room.model.js'
 
 
 // [GET] /guest/
@@ -29,29 +28,10 @@ const get = async (req, res, next) => {
     const guestList = await Guest.find(find)
       .limit(pagination.limitItem)
       .skip(pagination.skipItem)
+      .populate("boardingHouseRent", "name")
+      .populate("roomRent", "name")
 
-    console.log(guestList)
-
-
-    const newList = await Promise.all(
-      guestList.map(async (guest) => {
-        const boardingHouse = await BoardingHouse.findOne({ _id: guest.boardingHouseRent });
-        const room = await Room.findOne({ _id: guest.roomRent });
-
-        const a = guest.toObject();
-
-        return {
-          ...a,
-          room: room?.name,
-          boardingHouse: boardingHouse?.name
-        };
-
-      })
-    )
-
-    console.log(newList)
-
-    res.status(StatusCodes.OK).json({ data: newList })
+    res.status(StatusCodes.OK).json({ data: guestList })
   } catch (error) {
     next(error)
   }
@@ -62,13 +42,32 @@ const get = async (req, res, next) => {
 const add = async (req, res, next) => {
   try {
 
-    const guest = Guest.findOne({
-      identityCard: req.body.identityCard
-    })
+    const [guestCard, guestRoom, guestEmail] = await Promise.all([
+      Guest.findOne({
+        identityCard: req.body.identityCard
+      }),
 
-    if (guest) {
+      Guest.findOne({
+        roomRent: req.body.roomRent
+      }),
+
+      Guest.findOne({
+        email: req.body.email
+      })
+
+    ])
+
+    if (guestCard || guestEmail) {
       res.status(StatusCodes.CONFLICT).json({
         message: "Khách thuê đã tồn tại!"
+      })
+
+      return;
+    }
+
+    if (guestRoom) {
+      res.status(StatusCodes.CONFLICT).json({
+        message: "Phòng này đã có khách thuê!"
       })
 
       return;
@@ -77,6 +76,10 @@ const add = async (req, res, next) => {
     req.body.birthDate = new Date(req.body.birthDate)
     req.body.dayOfIssue = new Date(req.body.dayOfIssue)
     req.body.rentalDate = new Date(req.body.rentalDate)
+
+    await Room.updateOne({ _id: req.body.roomRent }, {
+      status: "Đang thuê"
+    })
 
     await Guest(req.body).save()
     res.status(StatusCodes.CREATED).json({ message: "Thêm thành công!" })
@@ -89,9 +92,47 @@ const add = async (req, res, next) => {
 const edit = async (req, res, next) => {
   try {
     const id = req.params.id;
+
+    console.log(req.params.id)
+
+    const [guestCard, guestRoom, guestEmail] = await Promise.all([
+      Guest.findOne({
+        _id: { $ne: id },
+        identityCard: req.body.identityCard
+      }),
+
+      Guest.findOne({
+        _id: { $ne: id },
+        roomRent: req.body.roomRent
+      }),
+
+      Guest.findOne({
+        _id: { $ne: id },
+        email: req.body.email
+      })
+
+    ])
+
+    if (guestCard || guestEmail) {
+      res.status(StatusCodes.CONFLICT).json({
+        message: "Khách thuê đã tồn tại!"
+      })
+
+      return;
+    }
+
+    if (guestRoom) {
+      res.status(StatusCodes.CONFLICT).json({
+        message: "Phòng này đã có khách thuê!"
+      })
+
+      return;
+    }
+
     req.body.birthDate = new Date(req.body.birthDate)
     req.body.dayOfIssue = new Date(req.body.dayOfIssue)
     req.body.rentalDate = new Date(req.body.rentalDate)
+
 
     await Guest.updateOne({ _id: id }, req.body);
 
@@ -105,6 +146,10 @@ const edit = async (req, res, next) => {
 const deleteGuest = async (req, res, next) => {
   try {
     const id = req.params.id;
+
+    await Room.updateOne({ _id: req.body.roomRent }, {
+      status: "Còn trống"
+    })
 
     await Guest.deleteOne({ _id: id });
 

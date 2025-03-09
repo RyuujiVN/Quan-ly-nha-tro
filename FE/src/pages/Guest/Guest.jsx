@@ -27,6 +27,18 @@ const Guest = () => {
   const handleEdit = (item) => {
     setGuest(item);
     setEditModal(true);
+
+    const rentalDate = new Date(item.rentalDate);
+    item.rentalDate = formatHelper.formatDate(rentalDate);
+
+    const birthDate = new Date(item.birthDate);
+    item.birthDate = formatHelper.formatDate(birthDate);
+
+    const dayOfIssue = new Date(item.dayOfIssue);
+    item.dayOfIssue = formatHelper.formatDate(dayOfIssue);
+
+    item.boardingHouseRent = item.boardingHouseRent._id;
+    item.roomRent = item.roomRent._id;
   };
 
   const handleDelete = (item) => {
@@ -46,10 +58,7 @@ const Guest = () => {
     <div className={"guest" + (guestList.length <= 5 ? " full-height" : "")}>
       <div className="container">
         <div className="guest-inner">
-          <BoxHead
-            title="Danh sách các loại dịch vụ ở trọ"
-            setAddModal={setAddModal}
-          />
+          <BoxHead title="Danh sách khách thuê" setAddModal={setAddModal} />
 
           <Table>
             <thead className="table-head">
@@ -75,8 +84,8 @@ const Guest = () => {
                       <td>{item.fullName}</td>
                       <td>{item.phone}</td>
                       <td>{formatHelper.formatDateWatch(newDate)}</td>
-                      <td>{item.boardingHouse}</td>
-                      <td>{item.room}</td>
+                      <td>{item?.boardingHouseRent?.name}</td>
+                      <td>{item?.roomRent?.name}</td>
                       <td>{item.email}</td>
                       <td>
                         <span
@@ -115,13 +124,13 @@ const Guest = () => {
         </div>
 
         {addModal && <AddModal setAddModal={setAddModal} />}
-        {editModal && <EditModal setEditModal={setEditModal} />}
+        {editModal && <EditModal setEditModal={setEditModal} guest={guest} />}
 
         {deleteModal && (
           <DeleteModal
             setDeleteModal={setDeleteModal}
-            title="Xoá dịch vụ"
-            content="Bạn xác nhận muốn xoá dịch vụ này? Sau khi bạn xoá, mọi thông tin sẽ không thể khôi phục được nữa."
+            title="Xoá khách thuê"
+            content="Bạn xác nhận muốn xoá khách thuê này? Sau khi bạn xoá, mọi thông tin sẽ không thể khôi phục được nữa."
             setLoading={setLoading}
             id={guest._id}
           />

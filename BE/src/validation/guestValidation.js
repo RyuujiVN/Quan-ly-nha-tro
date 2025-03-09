@@ -17,7 +17,7 @@ const validation = async (req, res, next) => {
   })
 
   try {
-    await correctCondition.validateAsync(req.body, { abortEarly: false })
+    await correctCondition.validateAsync(req.body, { abortEarly: false, allowUnknown: true })
 
     next()
   } catch (error) {

@@ -114,13 +114,13 @@ const EditModal = ({ setEditModal, room }) => {
               </div>
 
               <div className="form-input modal-input">
-                <label htmlFor="guest">Khách thuê</label>
+                <label htmlFor="guestName">Khách thuê</label>
                 <input
                   type="text"
-                  name="guest"
-                  id="guest"
+                  name="guestName"
+                  id="guestName"
                   readOnly
-                  {...register("guest")}
+                  value={room.guestName}
                 />
               </div>
 
@@ -176,7 +176,12 @@ const EditModal = ({ setEditModal, room }) => {
               Thoát
             </div>
 
-            <div className="btn btn-service" onClick={() => setServiceModal(true)}>Dịch vụ phòng</div>
+            <div
+              className="btn btn-service"
+              onClick={() => setServiceModal(true)}
+            >
+              Dịch vụ phòng
+            </div>
 
             <button type="submit" className="btn btn-accept">
               OK

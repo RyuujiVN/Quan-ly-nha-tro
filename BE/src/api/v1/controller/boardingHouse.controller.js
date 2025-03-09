@@ -5,7 +5,9 @@ import searchHelper from '../../../helpers/searchHelper.js'
 
 // [GET] /boarding-house/
 const get = async (req, res, next) => {
-  const find = {}
+  const find = {
+    user_id: req.jwtDecoded.id
+  }
 
   try {
     const search = searchHelper(req.query);
@@ -25,6 +27,8 @@ const get = async (req, res, next) => {
 // [POST] /boarding-house/add
 const add = async (req, res, next) => {
   try {
+    req.body.user_id = req.jwtDecoded.id;
+
     await BoardingHouse(req.body).save();
 
     res.status(StatusCodes.CREATED).json({

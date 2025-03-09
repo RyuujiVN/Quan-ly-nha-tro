@@ -9,8 +9,14 @@ const guestSchema = new Schema({
   email: String,
   dayOfIssue: Date,
   rentalDate: Date,
-  boardingHouseRent: String,
-  roomRent: String
+  boardingHouseRent: {
+    type: Schema.Types.ObjectId,
+    ref: "BoardingHouse"
+  },
+  roomRent: {
+    type: Schema.Types.ObjectId,
+    ref: "Room"
+  }
 },
   {
     timestamps: true

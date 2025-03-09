@@ -52,8 +52,8 @@ const ServiceModal = ({ setServiceModal, room }) => {
 
   return (
     <>
-      <Modal className="service-modal">
-        <div className="title">Dịch vụ phòng</div>
+      <Modal>
+        <div className="service-modal title">Dịch vụ phòng</div>
 
         <Table>
           <thead className="table-head">

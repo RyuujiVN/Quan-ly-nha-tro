@@ -48,3 +48,13 @@
 table:has(.table-service) {
   width: 900px;
 }
+
+.service-modal.title {
+  color: #FFF;
+  text-align: center;
+  font-size: 3.6rem;
+  font-weight: 700;
+  line-height: 0.55;
+  /* 55.556% */
+  margin-bottom: 20px;
+}
