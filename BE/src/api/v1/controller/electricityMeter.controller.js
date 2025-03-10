@@ -155,8 +155,6 @@ const updateElectricityMeter = async (req, res, next) => {
       }
     }).sort({ time: -1 })
 
-    console.log(electricityMeterPrev)
-
     // Nếu có thì cập nhật chỉ số mới bằng chỉ số cũ của tháng hiện tại
     if (electricityMeterPrev) {
       electricityMeterPrev.new = req.body.old

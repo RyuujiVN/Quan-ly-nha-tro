@@ -5,6 +5,8 @@ import serviceRoute from './serviceRoute.js'
 import boardingHouseRoute from './boardingHouseRoute.route.js'
 import roomRoute from './room.route.js'
 import electricityMeterRoute from './electricityMeter.route.js'
+import waterMeterRoute from './waterMeter.route.js'
+import incurredCostRoute from './incurredCostRoute.js'
 
 const route = (app) => {
     const version = "/api/v1";
@@ -22,6 +24,10 @@ const route = (app) => {
     app.use(version + "/room", roomRoute);
 
     app.use(version + "/electricity-meter", electricityMeterRoute);
+
+    app.use(version + "/water-meter", waterMeterRoute);
+
+    app.use(version + "/incurred-cost", incurredCostRoute);
 
 }
 

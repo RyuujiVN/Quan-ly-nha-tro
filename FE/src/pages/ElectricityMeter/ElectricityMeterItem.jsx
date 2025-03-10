@@ -8,7 +8,7 @@ import electricityMeterService from "../../service/electricityMeterService";
 const ElectricityMeterItem = ({ item, index }) => {
   const [indexOld, setIndexOld] = useState(item.old);
   const [indexNew, setIndexNew] = useState(item.new);
-  const [use, setUse] = useState();
+  const [use, setUse] = useState(indexNew - indexOld);
   const newDate = new Date(item.time);
 
   const handleSave = async () => {
