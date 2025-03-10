@@ -11,6 +11,8 @@ import BoardingHouse from "../pages/BoardingHouse/BoardingHouse";
 import Room from "../pages/Room/Room";
 import Service from "../pages/Service/Service";
 import Guest from "../pages/Guest/Guest";
+import ElectricityMeter from "../pages/ElectricityMeter/ElectricityMeter";
+import WaterMeter from "../pages/WaterMeter/WaterMeter";
 
 export const route = [
   {
@@ -43,6 +45,16 @@ export const route = [
           {
             path: "/guest",
             element: <Guest />,
+          },
+
+          {
+            path: "/electricityMeter",
+            element: <ElectricityMeter />,
+          },
+
+          {
+            path: "/waterMeter",
+            element: <WaterMeter />,
           },
         ],
       },

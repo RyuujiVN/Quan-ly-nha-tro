@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
 
 const roomSchema = new mongoose.Schema({
   name: String,
@@ -7,7 +7,10 @@ const roomSchema = new mongoose.Schema({
   price: Number,
   thumbnail: String,
   status: String,
-  boardingHouseId: String,
+  boardingHouseId: {
+    type: Schema.Types.ObjectId,
+    ref: "BoardingHouse"
+  },
   service_id: {
     type: Array,
     default: []

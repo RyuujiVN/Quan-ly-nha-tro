@@ -6,6 +6,7 @@ import serviceService from "../../service/serviceService";
 import roomService from "../../service/roomService";
 import { toast } from "react-toastify";
 import Loading from "../../components/Loading/Loading";
+import electricityMeterService from "../../service/electricityMeterService";
 
 const ServiceModal = ({ setServiceModal, room }) => {
   const [services, setServices] = useState([]);
@@ -32,11 +33,13 @@ const ServiceModal = ({ setServiceModal, room }) => {
     room.service_id = selected;
     const res = await roomService.editRoom(room, room._id);
 
+    await electricityMeterService.addElectricity({
+      room: room._id,
+    });
+
     setLoading(false);
     toast.success(res.data?.message);
   };
-
-  console.log(selected);
 
   useEffect(() => {
     const fetchService = async () => {
@@ -74,7 +77,7 @@ const ServiceModal = ({ setServiceModal, room }) => {
                     <td>
                       <input
                         type="checkbox"
-                        onChange={() => handleSelect(item._id)}
+                        onChange={() => handleSelect(item._id, item.name)}
                         value={item._id}
                         checked={selected.includes(item._id) ? true : false}
                       />

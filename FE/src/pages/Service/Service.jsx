@@ -11,6 +11,7 @@ import Loading from "../../components/Loading/Loading";
 import formatHelper from "../../helpers/formatHelper";
 import EditModal from "./EditModal";
 import DeleteModal from "./DeleteModal";
+import { useSearchParams } from "react-router-dom";
 
 const Service = () => {
   const [addModal, setAddModal] = useState(false);
@@ -19,6 +20,9 @@ const Service = () => {
   const [service, setService] = useState({});
   const [loading, setLoading] = useState(false);
   const services = useSelector((state) => state.serviceReducer);
+  const [searchParams] = useSearchParams();
+  const keyword = searchParams.get("keyword");
+
   const dispatch = useDispatch();
 
   const handleEdit = (item) => {
@@ -34,10 +38,10 @@ const Service = () => {
   useEffect(() => {
     setLoading(true);
 
-    dispatch(fetchService());
+    dispatch(fetchService(keyword));
 
     setLoading(false);
-  }, []);
+  }, [keyword]);
 
   if (loading) return <Loading />;
 

@@ -1,11 +1,19 @@
 import { StatusCodes } from 'http-status-codes'
 import Service from '../../../model/service.model.js'
+import searchHelper from '../../../helpers/searchHelper.js';
 
 // [GET] /api/v1/service/
 const get = async (req, res, next) => {
+  const find = {}
+
+  // Search
+  const search = searchHelper(req.query);
+
+  if (search.regex)
+    find.name = search.regex
 
   try {
-    const services = await Service.find({});
+    const services = await Service.find(find);
 
     res.status(StatusCodes.OK).json({
       data: services

@@ -21,7 +21,6 @@ const AddModal = ({ setAddModal }) => {
 
   const handleAdd = async (data) => {
     setLoading(true);
-    console.log(data);
     const res = await guestService.addGuest(data);
 
     reset();

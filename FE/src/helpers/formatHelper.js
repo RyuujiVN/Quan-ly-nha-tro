@@ -22,6 +22,14 @@ const formatDate = (date) => {
   return formatter.format(date);
 }
 
+const formatMonthYear = (date) => {
+  return date.toISOString().slice(0, 7)
+}
+
+const formatMonthWatch = (date) => {
+  return `${date.getMonth() + 1}/${date.getFullYear()}`
+}
+
 const formatDateWatch = (date) => {
   const formatter = new Intl.DateTimeFormat("en-US", {
     day: "2-digit",
@@ -36,7 +44,9 @@ const formatHelper = {
   format,
   parseNumber,
   formatDate,
-  formatDateWatch
+  formatDateWatch,
+  formatMonthYear,
+  formatMonthWatch
 }
 
 export default formatHelper

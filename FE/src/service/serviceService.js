@@ -1,7 +1,11 @@
 import instance from "../api/index.js"
 
-const getService = async () => {
-  const response = await instance.get("/service")
+const getService = async (keyword) => {
+  const response = await instance.get("/service", {
+    params: {
+      keyword: keyword
+    }
+  })
 
   return response.data
 }

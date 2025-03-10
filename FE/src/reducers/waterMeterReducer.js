@@ -1,12 +1,12 @@
 const initialState = []
 
-const serviceReducer = (state = initialState, action) => {
+const waterMeterReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "SET_SERVICE":
+    case "SET_WATER":
       return action.payload
     default:
       return state
   }
 }
 
-export default serviceReducer
+export default waterMeterReducer;

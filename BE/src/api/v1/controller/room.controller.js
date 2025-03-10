@@ -29,6 +29,7 @@ const get = async (req, res) => {
     const newList = await Promise.all(
       rooms.map(async (room) => {
         const guest = await Guest.findOne({ roomRent: room._id }).select("fullName");
+
         return {
           ...room.toObject(), // Chuyển document MongoDB về object JS
           guestName: guest?.fullName
@@ -73,8 +74,8 @@ const add = async (req, res) => {
 const editRoom = async (req, res, next) => {
   try {
     const id = req.params.id;
-
     await Room.updateOne({ _id: id }, req.body)
+
     res.status(StatusCodes.OK).json({
       message: "Chỉnh sửa thành công!"
     })

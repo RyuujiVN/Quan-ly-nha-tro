@@ -44,7 +44,7 @@ const Sidebar = () => {
 
         <li className="sidebar-container">
           <div className="sidebar-link">
-            <NavLink to="/electricity" className="link">
+            <NavLink to="/electricityMeter" className="link">
               Chỉ số điện
             </NavLink>
           </div>
@@ -52,7 +52,7 @@ const Sidebar = () => {
 
         <li className="sidebar-container">
           <div className="sidebar-link">
-            <NavLink to="/water" className="link">
+            <NavLink to="/waterMeter" className="link">
               Chỉ số nước
             </NavLink>
           </div>

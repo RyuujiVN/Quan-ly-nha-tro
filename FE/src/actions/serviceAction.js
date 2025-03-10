@@ -25,9 +25,9 @@ export const deleteService = () => {
   }
 }
 
-export const fetchService = () => {
+export const fetchService = (keyword) => {
   return async (dispatch) => {
-    const response = await serviceService.getService("/service");
+    const response = await serviceService.getService(keyword);
 
     dispatch(setService(response.data))
   }

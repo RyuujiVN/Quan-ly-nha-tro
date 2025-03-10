@@ -73,6 +73,8 @@ const add = async (req, res, next) => {
       return;
     }
 
+    console.log(new Date("2025-03-04"))
+
     req.body.birthDate = new Date(req.body.birthDate)
     req.body.dayOfIssue = new Date(req.body.dayOfIssue)
     req.body.rentalDate = new Date(req.body.rentalDate)
