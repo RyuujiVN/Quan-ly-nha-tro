@@ -60,7 +60,7 @@ const Sidebar = () => {
 
         <li className="sidebar-container">
           <div className="sidebar-link">
-            <NavLink to="/cost-incurred" className="link">
+            <NavLink to="/incurred-cost" className="link">
               Chi phí phát sinh
             </NavLink>
           </div>

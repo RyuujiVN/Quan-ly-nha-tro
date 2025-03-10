@@ -1,0 +1,16 @@
+.cost {
+  background: var(--bg-blue-dark-two);
+  height: 100%;
+}
+
+.action {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.action .btn-add {
+  background: var(--color-blue);
+  border-radius: 10px;
+  margin-bottom: 10px;
+}

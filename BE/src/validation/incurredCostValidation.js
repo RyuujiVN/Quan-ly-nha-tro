@@ -3,10 +3,10 @@ import Joi from 'joi'
 
 const validation = async (req, res, next) => {
   const correctCondition = Joi.object({
-    name: Joi.string().required().min(3).trim().strict(),
-    price: Joi.number().required().min(3).strict(),
-    unit: Joi.string().required().min(3).trim().strict(),
-    quantity: Joi.number().allow(null).min(1).strict()
+    month: Joi.date().required().iso(3),
+    price: Joi.number().required().min(0).strict(),
+    payBy: Joi.string().required().min(3).trim().strict(),
+    description: Joi.string().allow(null).max(250).strict()
   });
 
   try {
@@ -21,8 +21,8 @@ const validation = async (req, res, next) => {
   }
 }
 
-const serviceValidation = {
+const incurredCostValidation = {
   validation
 }
 
-export default serviceValidation
+export default incurredCostValidation

@@ -5,6 +5,7 @@ import serviceReducer from './serviceReducer'
 import guestReducer from './guestReducer'
 import electricityMeterReducer from './electricityMeterReducer'
 import waterMeterReducer from './waterMeterReducer'
+import incurredCostReducer from './incurredCostReducer'
 
 const allReducers = combineReducers({
   boardingHouseReducer,
@@ -12,7 +13,8 @@ const allReducers = combineReducers({
   serviceReducer,
   guestReducer,
   electricityMeterReducer,
-  waterMeterReducer
+  waterMeterReducer,
+  incurredCostReducer
 })
 
 export default allReducers
