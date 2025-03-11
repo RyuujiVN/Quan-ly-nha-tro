@@ -21,7 +21,8 @@ const getIncurredCost = async (req, res) => {
           month: {
             $gte: startMonth,
             $lt: endMonth
-          }
+          },
+          user: req.jwtDecoded.id
         }
       },
       {
@@ -81,7 +82,10 @@ const getIncurredCost = async (req, res) => {
 const addIncurredCost = async (req, res, next) => {
 
   try {
-    await IncurredCost(req.body).save();
+    await IncurredCost({
+      ...req.body,
+      user: req.jwtDecoded.id
+    }).save();
 
     res.status(StatusCodes.CREATED).json({
       message: "Thêm thành công!"

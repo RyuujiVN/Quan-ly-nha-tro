@@ -17,6 +17,7 @@ const utilityReadingSchema = new Schema({
     type: Number,
     default: 0
   },
+  user: String
 },
   {
     discriminatorKey: 'type',

@@ -14,7 +14,8 @@ const roomSchema = new mongoose.Schema({
   service_id: {
     type: Array,
     default: []
-  }
+  },
+  user: String
 });
 
 const Room = mongoose.model("Room", roomSchema, "room");

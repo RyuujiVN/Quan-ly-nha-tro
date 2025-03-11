@@ -16,7 +16,8 @@ const guestSchema = new Schema({
   roomRent: {
     type: Schema.Types.ObjectId,
     ref: "Room"
-  }
+  },
+  user: String
 },
   {
     timestamps: true

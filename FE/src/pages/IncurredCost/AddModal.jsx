@@ -22,8 +22,6 @@ const AddModal = ({ setAddModal }) => {
   const roomList = useSelector((state) => state.roomReducer);
   const dispatch = useDispatch();
 
-  console.log(time);
-
   const handleFormatPrice = (e) => {
     const number = formatHelper.parseNumber(e.target.value);
 

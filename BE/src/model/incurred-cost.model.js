@@ -8,7 +8,8 @@ const incurredCostSchema = new Schema({
   month: Date,
   payBy: String,
   price: Number,
-  description: String
+  description: String,
+  user: String
 },
   {
     timestamps: true

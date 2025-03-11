@@ -4,7 +4,9 @@ import searchHelper from '../../../helpers/searchHelper.js';
 
 // [GET] /api/v1/service/
 const get = async (req, res, next) => {
-  const find = {}
+  const find = {
+    user: req.jwtDecoded.id
+  }
 
   // Search
   const search = searchHelper(req.query);
@@ -26,7 +28,10 @@ const get = async (req, res, next) => {
 // [POST] /api/v1/service/add
 const add = async (req, res) => {
   try {
-    await Service(req.body).save()
+    await Service({
+      ...req.body,
+      user: req.jwtDecoded.id
+    }).save()
 
     res.status(StatusCodes.CREATED).json({
       message: "Thêm thành công!"

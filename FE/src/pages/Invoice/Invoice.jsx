@@ -1,25 +1,23 @@
 import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
-import AddModal from "./AddModal";
 import formatHelper from "../../helpers/formatHelper";
-import "./IncurredCost.css";
+import { useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchIncurredCost } from "../../actions/incurredCostAction";
+import { fetchInvoice } from "../../actions/invoiceAction";
 import Table from "../../components/Table/Table";
-import IncurredCostItem from "./IncurredCostItem";
-import { EditModal } from "./EditModal";
-import DeleteModal from "./DeleteModal";
+import InvoiceItem from "./InvoiceItem";
+import Bill from "./Bill";
+import "./Invoice.css";
+import invoiceService from "../../service/invoiceService";
+import { toast } from "react-toastify";
 import Loading from "../../components/Loading/Loading";
 
-const IncurredCost = () => {
+const Invoice = () => {
   const [time, setTime] = useState(formatHelper.formatMonthYear(new Date()));
-  const [addModal, setAddmodal] = useState(false);
-  const [editModal, setEditModal] = useState(false);
-  const [deleteModal, setDeleteModal] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
+  const [bill, setBill] = useState(false);
+  const [item, setItem] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [item, setItem] = useState();
-  const list = useSelector((state) => state.incurredCostReducer);
+  const list = useSelector((state) => state.invoiceReducer);
   const dispatch = useDispatch();
 
   const month = searchParams.get("month");
@@ -32,20 +30,33 @@ const IncurredCost = () => {
     });
   };
 
-  useEffect(() => {
+  const handleCreate = async () => {
     setLoading(true);
-    dispatch(fetchIncurredCost(month));
+
+    const monthObj = {
+      month: month || time,
+    };
+
+    const res = await invoiceService.createInvoice(monthObj);
+
+    dispatch(fetchInvoice(month));
+
     setLoading(false);
+    toast.success(res.data?.message);
+  };
+
+  useEffect(() => {
+    dispatch(fetchInvoice(month));
   }, [month]);
 
   if (loading) return <Loading />;
 
   return (
     <>
-      <div className="cost">
+      <div className="electricity">
         <div className="container">
-          <div className="cost-inner">
-            <div className="title">Chi phí phát sinh</div>
+          <div className="guest-inner">
+            <div className="title">Hoá đơn</div>
             <div className="action">
               <div className="filter-month">
                 <label htmlFor="month">Tháng năm:</label>
@@ -59,22 +70,10 @@ const IncurredCost = () => {
                 />
               </div>
 
-              <div className="btn btn-add" onClick={() => setAddmodal(true)}>
-                + Thêm mới
+              <div className="btn btn-add" onClick={handleCreate}>
+                Tạo hoá đơn
               </div>
             </div>
-
-            {addModal && <AddModal setAddModal={setAddmodal} />}
-            {editModal && <EditModal setEditModal={setEditModal} item={item} />}
-            {deleteModal && (
-              <DeleteModal
-                setDeleteModal={setDeleteModal}
-                id={item._id}
-                title="Xoá chi phí phát sinh"
-                content="Bạn xác nhận muốn xoá chi phí này? Sau khi bạn xoá, mọi thông tin sẽ không thể khôi phục được nữa."
-                setLoading={setLoading}
-              />
-            )}
 
             <Table>
               <thead className="table-head">
@@ -83,9 +82,10 @@ const IncurredCost = () => {
                   <th>Thời gian</th>
                   <th>Căn trọ</th>
                   <th>Phòng trọ</th>
-                  <th>Người chi trả</th>
+                  <th>Tên khách</th>
                   <th>Số tiền</th>
-                  <th>Ghi chú</th>
+                  <th>Đã trả</th>
+                  <th>Còn lại</th>
                   <th>Tuỳ chỉnh</th>
                 </tr>
               </thead>
@@ -93,17 +93,19 @@ const IncurredCost = () => {
               <tbody className="table-body">
                 {list.length > 0 &&
                   list.map((item, index) => (
-                    <IncurredCostItem
+                    <InvoiceItem
                       key={item._id}
                       item={item}
                       index={index}
+                      setBill={setBill}
                       setItem={setItem}
-                      setEditModal={setEditModal}
-                      setDeleteModal={setDeleteModal}
+                      setLoading={setLoading}
                     />
                   ))}
               </tbody>
             </Table>
+
+            {bill && <Bill item={item} setBill={setBill} />}
           </div>
         </div>
       </div>
@@ -111,4 +113,4 @@ const IncurredCost = () => {
   );
 };
 
-export default IncurredCost;
+export default Invoice;

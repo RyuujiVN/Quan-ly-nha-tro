@@ -14,6 +14,7 @@ import Guest from "../pages/Guest/Guest";
 import ElectricityMeter from "../pages/ElectricityMeter/ElectricityMeter";
 import WaterMeter from "../pages/WaterMeter/WaterMeter";
 import IncurredCost from "../pages/IncurredCost/IncurredCost";
+import Invoice from "../pages/Invoice/Invoice";
 
 export const route = [
   {
@@ -61,6 +62,11 @@ export const route = [
           {
             path: "/incurred-cost",
             element: <IncurredCost />,
+          },
+
+          {
+            path: "/invoice",
+            element: <Invoice />,
           },
         ],
       },

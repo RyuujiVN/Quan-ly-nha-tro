@@ -7,7 +7,9 @@ import Room from '../../../model/room.model.js'
 
 // [GET] /guest/
 const get = async (req, res, next) => {
-  const find = {}
+  const find = {
+    user: req.jwtDecoded.id
+  }
 
   // Search
   const search = searchHelper(req.query)
@@ -83,7 +85,10 @@ const add = async (req, res, next) => {
       status: "Đang thuê"
     })
 
-    await Guest(req.body).save()
+    await Guest({
+      ...req.body,
+      user: req.jwtDecoded.id
+    }).save()
     res.status(StatusCodes.CREATED).json({ message: "Thêm thành công!" })
   } catch (error) {
     next(error)
@@ -135,6 +140,14 @@ const edit = async (req, res, next) => {
     req.body.dayOfIssue = new Date(req.body.dayOfIssue)
     req.body.rentalDate = new Date(req.body.rentalDate)
 
+    const guest = Guest.findOne({ _id: id });
+
+    await Room.updateOne({ _id: guest.roomRent }, { status: "Còn trống" })
+
+    await Room.updateOne({ _id: req.body.roomRent }, {
+      status: "Đang thuê"
+    })
+
 
     await Guest.updateOne({ _id: id }, req.body);
 
@@ -149,7 +162,9 @@ const deleteGuest = async (req, res, next) => {
   try {
     const id = req.params.id;
 
-    await Room.updateOne({ _id: req.body.roomRent }, {
+    const guest = await Guest.findOne({ _id: id })
+
+    await Room.updateOne({ _id: guest.roomRent }, {
       status: "Còn trống"
     })
 

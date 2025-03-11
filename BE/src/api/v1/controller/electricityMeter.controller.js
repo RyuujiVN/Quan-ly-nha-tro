@@ -23,7 +23,8 @@ const getElectricityMeter = async (req, res, next) => {
           time: {
             $gte: startOfMonth,
             $lt: endOfMonth
-          }
+          },
+          user: req.jwtDecoded.id
         }
       },
 
@@ -117,12 +118,13 @@ const addDelete = async (req, res, next) => {
       ])
 
       if (!existed && !monthPrev) {
-        await new ElectricityMeter({ room: req.body.room }).save();
+        await new ElectricityMeter({ room: req.body.room, user: req.jwtDecoded.id }).save();
       }
       else if (monthPrev) {
         await new ElectricityMeter({
           room: req.body.room,
-          old: monthPrev.new
+          old: monthPrev.new,
+          user: req.jwtDecoded.id
         }).save()
       }
     }
@@ -178,7 +180,9 @@ const updateElectricityMeter = async (req, res, next) => {
       await new ElectricityMeter({
         room: req.body.room,
         old: req.body.new,
+        new: req.body.new,
         time: endMonth,
+        user: req.jwtDecoded.id
       }).save()
     }
 

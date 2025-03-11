@@ -13,6 +13,8 @@ const validation = async (req, res, next) => {
     boardingHouseId: Joi.string().required().trim().strict()
   })
 
+  console.log(req.body)
+
   // Validate
   try {
     await correctCondition.validateAsync(req.body, { abortEarly: false, allowUnknown: true })

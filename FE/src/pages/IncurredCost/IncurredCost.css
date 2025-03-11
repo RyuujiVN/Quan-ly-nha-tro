@@ -3,6 +3,13 @@
   height: 100%;
 }
 
+.cost .title {
+  color: #fff;
+  font-weight: 700;
+  font-size: 3.2rem;
+  padding: 15px 0;
+}
+
 .action {
   display: flex;
   align-items: center;

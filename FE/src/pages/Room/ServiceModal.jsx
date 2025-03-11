@@ -32,6 +32,7 @@ const ServiceModal = ({ setServiceModal, room }) => {
     setLoading(true);
 
     room.service_id = selected;
+    room.price = parseInt(room.price.replaceAll(".", ""));
     const res = await roomService.editRoom(room, room._id);
 
     await Promise.all([

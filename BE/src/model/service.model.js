@@ -7,7 +7,8 @@ const serviceSchema = new Schema({
   quantity: {
     type: Number,
     default: 1
-  }
+  },
+  user: String
 },
   {
     timestamps: true

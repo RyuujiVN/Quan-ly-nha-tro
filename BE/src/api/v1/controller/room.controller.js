@@ -9,7 +9,8 @@ const get = async (req, res) => {
   const { boardingHouseId } = req.query
 
   const find = {
-    boardingHouseId: boardingHouseId
+    boardingHouseId: boardingHouseId,
+    user: req.jwtDecoded.id
   }
 
   // Search
@@ -61,7 +62,10 @@ const add = async (req, res) => {
     req.body.price = parseInt(req.body.price)
     req.body.roomArea = parseInt(req.body.roomArea)
 
-    await Room(req.body).save();
+    await Room({
+      ...req.body,
+      user: req.jwtDecoded.id
+    }).save();
     res.status(StatusCodes.CREATED).json({
       message: "Thêm thành công!"
     })
