@@ -218,6 +218,7 @@ const createInvoice = async (req, res, next) => {
     selectedMonth.getUTCDate(1) // Đưa về ngày đầu tháng
     selectedMonth.getUTCHours(0, 0, 0, 0)
 
+    console.log(selectedMonth)
     const startMonth = selectedMonth
 
     const endMonth = new Date(startMonth)
@@ -421,7 +422,8 @@ const createInvoice = async (req, res, next) => {
           totalCost: totalCost,
           electricityMeterId: room.electricity._id,
           waterMeterId: room.water._id,
-          user: req.jwtDecoded.id
+          user: req.jwtDecoded.id,
+          month: startMonth
         }
 
         await new Invoice(object).save()

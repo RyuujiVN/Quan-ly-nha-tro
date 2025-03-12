@@ -159,7 +159,7 @@ export const EditModal = ({ setEditModal, item }) => {
           </div>
 
           <div className="form-input modal-input">
-            <label htmlFor="price">Giá thuê phòng</label>
+            <label htmlFor="price">Chi phí</label>
             <input
               type="text"
               name="price"

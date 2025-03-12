@@ -180,6 +180,7 @@ const updateWaterMeter = async (req, res, next) => {
       await new WaterMeter({
         room: req.body.room,
         old: req.body.new,
+        new: req.body.new,
         time: endMonth,
         user: req.jwtDecoded.id
       }).save()

@@ -12,7 +12,7 @@ import guestService from "../../service/guestService.js";
 import { addGuest } from "../../actions/guestAction.js";
 
 const AddModal = ({ setAddModal }) => {
-  const { register, handleSubmit, formState, reset } = useForm();
+  const { register, handleSubmit, formState, reset, getValues } = useForm();
   const { errors } = formState;
   const [loading, setLoading] = useState(false);
   const boardingHouseList = useSelector((state) => state.boardingHouseReducer);
@@ -199,6 +199,10 @@ const AddModal = ({ setAddModal }) => {
                     max: {
                       value: new Date().toISOString().split("T")[0],
                       message: "Ngày cấp không được lớn hơn hôm nay!",
+                    },
+                    min: {
+                      value: getValues("birthDate"),
+                      message: "Ngày cấp không được bé hơn ngày sinh",
                     },
                   })}
                 />

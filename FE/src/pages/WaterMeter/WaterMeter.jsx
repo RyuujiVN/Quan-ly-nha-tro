@@ -32,7 +32,7 @@ const WaterMeter = () => {
       <div className="water">
         <div className="container">
           <div className="guest-inner">
-            <div className="title">Chỉ số điện</div>
+            <div className="title">Chỉ số nước</div>
             <div className="filter-month">
               <label htmlFor="month">Tháng năm:</label>
               <input
@@ -62,11 +62,7 @@ const WaterMeter = () => {
               <tbody className="table-body">
                 {list.length > 0 &&
                   list.map((item, index) => (
-                    <WaterMeterItem
-                      key={item._id}
-                      item={item}
-                      index={index}
-                    />
+                    <WaterMeterItem key={item._id} item={item} index={index} />
                   ))}
               </tbody>
             </Table>

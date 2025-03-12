@@ -20,7 +20,7 @@ const EditModal = ({ setEditModal, guest }) => {
   const boardingHouseList = useSelector((state) => state.boardingHouseReducer);
   const roomList = useSelector((state) => state.roomReducer);
   const dispatch = useDispatch();
-  const name = watch("roomRent");
+  watch("roomRent");
 
   const handleEdit = async (data) => {
     setLoading(true);
@@ -203,6 +203,14 @@ const EditModal = ({ setEditModal, guest }) => {
                   id="dayOfIssue"
                   {...register("dayOfIssue", {
                     required: "Vui lòng nhập ngày cấp!",
+                    max: {
+                      value: new Date().toISOString().split("T")[0],
+                      message: "Ngày cấp không được lớn hơn hôm nay!",
+                    },
+                    min: {
+                      value: getValues("birthDate"),
+                      message: "Ngày cấp không được bé hơn ngày sinh",
+                    },
                   })}
                 />
 

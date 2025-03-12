@@ -128,7 +128,7 @@ const AddModal = ({ setAddModal }) => {
               </div>
 
               <div className="form-input modal-input">
-                <label htmlFor="payBy">Địa chỉ</label>
+                <label htmlFor="payBy">Người chi trả</label>
                 <select name="payBy" id="payBy" {...register("payBy")}>
                   <option value="Chủ nhà">Chủ nhà</option>
                   <option value="Khách thuê">Khách thuê</option>
@@ -140,7 +140,7 @@ const AddModal = ({ setAddModal }) => {
           </div>
 
           <div className="form-input modal-input">
-            <label htmlFor="price">Giá thuê phòng</label>
+            <label htmlFor="price">Chi phí</label>
             <input
               type="text"
               name="price"
