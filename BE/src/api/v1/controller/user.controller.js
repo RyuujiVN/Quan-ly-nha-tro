@@ -10,12 +10,13 @@ import sendEmail from '../../../helpers/sendEmail.js';
 // [POST] /user/register
 const register = async (req, res, next) => {
     try {
+        
         const existed = await Account.findOne({
             email: req.body?.email
         });
 
         if (existed) {
-            res.status(StatusCodes.UNPROCESSABLE_ENTITY).json({ messsage: "Email bị trùng!" });
+            res.status(StatusCodes.UNPROCESSABLE_ENTITY).json({ message: "Email bị trùng!" });
             return;
         }
 

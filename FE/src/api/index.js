@@ -37,7 +37,7 @@ instance.interceptors.response.use((response) => {
   // Nếu là lỗi 410 thì gọi api refresh token
   // Lấy các request api đang bị lỗi
   const originalRequest = error.config
-  if (error.response?.status === 410  && !originalRequest._retry) {
+  if (error.response?.status === 410 && !originalRequest._retry) {
     originalRequest._retry = true;
 
     return userService.refreshTokenApi()

@@ -16,9 +16,8 @@ const Register = () => {
       email: data.email,
       password: data.password,
     };
-
-    console.log(userInfo);
     const res = await userService.register(userInfo);
+    
     toast.success(res.data?.message);
     navigate("/login");
   };
